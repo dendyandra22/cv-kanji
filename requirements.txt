@@ -1,0 +1,6 @@
+numpy
+svgpathtools
+fastdtw
+scipy
+streamlit
+streamlit-drawable-canvas
