@@ -1,6 +1,13 @@
 import numpy as np
 from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
+import cv2
+from skimage.metrics import structural_similarity as ssim
+# from PIL import Image
+# import io
+import torch
+import torch.nn.functional as F
+from svgpathtools import svg2paths
 
 def evaluate_stroke_direction(user_stroke, ref_stroke):
     """
@@ -75,6 +82,88 @@ def evaluate_character_sequence(user_strokes, ref_strokes):
         "avg_direction_score": round(avg_dir, 2),
         "stroke_breakdown": results
     }
+
+def rasterize_svg_to_canvas(svg_path, canvas_shape=(350, 350), line_thickness=6):
+    """
+    Renders SVG path curves onto a binary NumPy image canvas using OpenCV.
+    No Cairo C-libraries required!
+    """
+    canvas = np.zeros(canvas_shape, dtype=np.uint8)
+
+    try:
+        paths, attributes = svg2paths(svg_path)
+
+        # KanjiVG standard viewBox is 109x109, scale it to match Streamlit canvas (350x350)
+        scale_x = canvas_shape[1] / 109.0
+        scale_y = canvas_shape[0] / 109.0
+
+        for path in paths:
+            # Sample points along Bezier curves
+            pts = []
+            for t in np.linspace(0, 1, 50):
+                point = path.point(t)
+                x = int(point.real * scale_x)
+                y = int(point.imag * scale_y)
+                pts.append([x, y])
+
+            pts = np.array(pts, dtype=np.int32).reshape((-1, 1, 2))
+            # Draw line path on black canvas (white strokes = 255)
+            cv2.polylines(canvas, [pts], isClosed=False, color=255, thickness=line_thickness)
+
+    except Exception as e:
+        print(f"Error rasterizing SVG template: {e}")
+
+    return canvas
+
+def evaluate_ssim(user_img_array, target_svg_path, canvas_size=(350, 350)):
+    """
+    Computes SSIM between user canvas drawing image and rendered template image.
+    """
+    # Convert RGBA canvas image to grayscale
+    user_gray = cv2.cvtColor(user_img_array, cv2.COLOR_RGBA2GRAY)
+
+    # Invert so background is black (0) and stroke is white (255)
+    _, user_bin = cv2.threshold(user_gray, 200, 255, cv2.THRESH_BINARY_INV)
+
+    # Convert target kanji from SVG to PNG bytes
+    try:
+        # Rasterize target SVG file into PNG bytes at canvas dimensions
+        target_bin = rasterize_svg_to_canvas(target_svg_path, canvas_shape=canvas_size)
+
+    except Exception as e:
+        # Fallback if SVG parsing fails
+        print(f"Failed to load target SVG: {e}")
+        target_bin = np.zeros_like(user_bin)
+
+    # Calculate SSIM score
+    score, _ = ssim(user_bin, target_bin, full=True)
+
+    # Normalize score between 0 and 100
+    ssim_score = max(0.0, (score + 1.0) / 2.0 * 100.0)
+    return round(ssim_score, 2)
+
+
+def calculate_similarity_score(model, user_draw_tensor, target_svg_tensor):
+    """
+    Calculates similarity score between user canvas and target SVG.
+    Input data is the standardized 4D PyTorch tensor format [N, C, H, W] with detail below:
+
+    N: batch size (default is 1 batch),\n
+    C: Channels (default is 1 channel since it in black-white), \n
+    H: Height (default is 28 pixel), \n
+    W: Width (default is 28 pixel), \n
+    """
+    with torch.no_grad():
+        emb1, emb2 = model(user_draw_tensor, target_svg_tensor)
+
+        # Calculate Euclidean Distance
+        distance = F.pairwise_distance(emb1, emb2).item()
+
+        # Convert distance to a 0-100% similarity score
+        # (Assuming max acceptable distance is ~2.0)
+        similarity = max(0.0, 100.0 * (1.0 - (distance / 2.0)))
+
+        return round(similarity, 1)
 
 # --- Quick Test ---
 if __name__ == "__main__":
