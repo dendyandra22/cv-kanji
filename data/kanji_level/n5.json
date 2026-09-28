@@ -1,0 +1,620 @@
+[
+  {
+    "kanji": "一",
+    "unicode": "U+4E00",
+    "kunyomi": "hito",
+    "onyomi": "ichi"
+  },
+  {
+    "kanji": "二",
+    "unicode": "U+4E8C",
+    "kunyomi": "futa",
+    "onyomi": "ni"
+  },
+  {
+    "kanji": "三",
+    "unicode": "U+4E09",
+    "kunyomi": "mi",
+    "onyomi": "san"
+  },
+  {
+    "kanji": "四",
+    "unicode": "U+56DB",
+    "kunyomi": "yon",
+    "onyomi": "shi"
+  },
+  {
+    "kanji": "五",
+    "unicode": "U+5404",
+    "kunyomi": "itsu",
+    "onyomi": "go"
+  },
+  {
+    "kanji": "六",
+    "unicode": "U+501D",
+    "kunyomi": "mu",
+    "onyomi": "roku"
+  },
+  {
+    "kanji": "七",
+    "unicode": "U+4E03",
+    "kunyomi": "nana",
+    "onyomi": "shichi"
+  },
+  {
+    "kanji": "八",
+    "unicode": "U+516B",
+    "kunyomi": "ya",
+    "onyomi": "hachi"
+  },
+  {
+    "kanji": "九",
+    "unicode": "U+4E5D",
+    "kunyomi": "kokono",
+    "onyomi": "kyuu"
+  },
+  {
+    "kanji": "十",
+    "unicode": "U+5341",
+    "kunyomi": "too",
+    "onyomi": "juu"
+  },
+  {
+    "kanji": "百",
+    "unicode": "U+767E",
+    "kunyomi": "momo",
+    "onyomi": "hyaku"
+  },
+  {
+    "kanji": "千",
+    "unicode": "U+5343",
+    "kunyomi": "chi",
+    "onyomi": "sen"
+  },
+  {
+    "kanji": "万",
+    "unicode": "U+4E07",
+    "kunyomi": "yorozu",
+    "onyomi": "man"
+  },
+  {
+    "kanji": "円",
+    "unicode": "U+5186",
+    "kunyomi": "maru",
+    "onyomi": "en"
+  },
+  {
+    "kanji": "口",
+    "unicode": "U+53E3",
+    "kunyomi": "kuchi",
+    "onyomi": "kou"
+  },
+  {
+    "kanji": "日",
+    "unicode": "U+65E5",
+    "kunyomi": "hi",
+    "onyomi": "nichi"
+  },
+  {
+    "kanji": "月",
+    "unicode": "U+6708",
+    "kunyomi": "tsuki",
+    "onyomi": "getsu"
+  },
+  {
+    "kanji": "火",
+    "unicode": "U+706B",
+    "kunyomi": "hi",
+    "onyomi": "ka"
+  },
+  {
+    "kanji": "水",
+    "unicode": "U+6C34",
+    "kunyomi": "mizu",
+    "onyomi": "sui"
+  },
+  {
+    "kanji": "木",
+    "unicode": "U+6728",
+    "kunyomi": "ki",
+    "onyomi": "moku"
+  },
+  {
+    "kanji": "金",
+    "unicode": "U+91D1",
+    "kunyomi": "kane",
+    "onyomi": "kin"
+  },
+  {
+    "kanji": "土",
+    "unicode": "U+571F",
+    "kunyomi": "tsuchi",
+    "onyomi": "to"
+  },
+  {
+    "kanji": "曜",
+    "unicode": "U+6DCB",
+    "kunyomi": "hikari",
+    "onyomi": "you"
+  },
+  {
+    "kanji": "年",
+    "unicode": "U+5E74",
+    "kunyomi": "toshi",
+    "onyomi": "nen"
+  },
+  {
+    "kanji": "時",
+    "unicode": "U+6642",
+    "kunyomi": "toki",
+    "onyomi": "ji"
+  },
+  {
+    "kanji": "分",
+    "unicode": "U+5206",
+    "kunyomi": "waka",
+    "onyomi": "fun"
+  },
+  {
+    "kanji": "半",
+    "unicode": "U+534A",
+    "kunyomi": "naka",
+    "onyomi": "han"
+  },
+  {
+    "kanji": "本",
+    "unicode": "U+672C",
+    "kunyomi": "moto",
+    "onyomi": "hon"
+  },
+  {
+    "kanji": "人",
+    "unicode": "U+4EBA",
+    "kunyomi": "hito",
+    "onyomi": "jin"
+  },
+  {
+    "kanji": "子",
+    "unicode": "U+5B50",
+    "kunyomi": "ko",
+    "onyomi": "shi"
+  },
+  {
+    "kanji": "女",
+    "unicode": "U+5773",
+    "kunyomi": "onna",
+    "onyomi": "jo"
+  },
+  {
+    "kanji": "男",
+    "unicode": "U+7537",
+    "kunyomi": "otoko",
+    "onyomi": "dan"
+  },
+  {
+    "kanji": "目",
+    "unicode": "U+76EE",
+    "kunyomi": "me",
+    "onyomi": "moku"
+  },
+  {
+    "kanji": "耳",
+    "unicode": "U+8033",
+    "kunyomi": "mimi",
+    "onyomi": "ji"
+  },
+  {
+    "kanji": "手",
+    "unicode": "U+624B",
+    "kunyomi": "te",
+    "onyomi": "shu"
+  },
+  {
+    "kanji": "足",
+    "unicode": "U+8DB3",
+    "kunyomi": "ashi",
+    "onyomi": "soku"
+  },
+  {
+    "kanji": "力",
+    "unicode": "U+529B",
+    "kunyomi": "chikara",
+    "onyomi": "ryoku"
+  },
+  {
+    "kanji": "父",
+    "unicode": "U+7236",
+    "kunyomi": "chichi",
+    "onyomi": "fu"
+  },
+  {
+    "kanji": "母",
+    "unicode": "U+724F",
+    "kunyomi": "haha",
+    "onyomi": "bo"
+  },
+  {
+    "kanji": "先",
+    "unicode": "U+5148",
+    "kunyomi": "saki",
+    "onyomi": "sen"
+  },
+  {
+    "kanji": "生",
+    "unicode": "U+751F",
+    "kunyomi": "iki",
+    "onyomi": "sei"
+  },
+  {
+    "kanji": "学",
+    "unicode": "U+5B66",
+    "kunyomi": "mana",
+    "onyomi": "gaku"
+  },
+  {
+    "kanji": "校",
+    "unicode": "U+6821",
+    "kunyomi": "kase",
+    "onyomi": "kou"
+  },
+  {
+    "kanji": "友",
+    "unicode": "U+53CB",
+    "kunyomi": "tomo",
+    "onyomi": "yuu"
+  },
+  {
+    "kanji": "車",
+    "unicode": "U+8ECA",
+    "kunyomi": "kuruma",
+    "onyomi": "sha"
+  },
+  {
+    "kanji": "山",
+    "unicode": "U+5C71",
+    "kunyomi": "yama",
+    "onyomi": "san"
+  },
+  {
+    "kanji": "川",
+    "unicode": "U+5DDD",
+    "kunyomi": "kawa",
+    "onyomi": "sen"
+  },
+  {
+    "kanji": "田",
+    "unicode": "U+7530",
+    "kunyomi": "ta",
+    "onyomi": "den"
+  },
+  {
+    "kanji": "雨",
+    "unicode": "U+96E8",
+    "kunyomi": "ame",
+    "onyomi": "u"
+  },
+  {
+    "kanji": "天",
+    "unicode": "U+5929",
+    "kunyomi": "ama",
+    "onyomi": "ten"
+  },
+  {
+    "kanji": "気",
+    "unicode": "U+6017",
+    "kunyomi": "iki",
+    "onyomi": "ki"
+  },
+  {
+    "kanji": "花",
+    "unicode": "U+82B1",
+    "kunyomi": "hana",
+    "onyomi": "ka"
+  },
+  {
+    "kanji": "国",
+    "unicode": "U+56FD",
+    "kunyomi": "kuni",
+    "onyomi": "koku"
+  },
+  {
+    "kanji": "会",
+    "unicode": "U+4F1A",
+    "kunyomi": "a",
+    "onyomi": "kai"
+  },
+  {
+    "kanji": "社",
+    "unicode": "U+793E",
+    "kunyomi": "yashiro",
+    "onyomi": "sha"
+  },
+  {
+    "kanji": "店",
+    "unicode": "U+5E97",
+    "kunyomi": "mise",
+    "onyomi": "ten"
+  },
+  {
+    "kanji": "駅",
+    "unicode": "U+9900",
+    "kunyomi": "ekiba",
+    "onyomi": "eki"
+  },
+  {
+    "kanji": "上",
+    "unicode": "U+4E0A",
+    "kunyomi": "ue",
+    "onyomi": "jou"
+  },
+  {
+    "kanji": "下",
+    "unicode": "U+4E0B",
+    "kunyomi": "shita",
+    "onyomi": "ka"
+  },
+  {
+    "kanji": "中",
+    "unicode": "U+4E2D",
+    "kunyomi": "naka",
+    "onyomi": "chuu"
+  },
+  {
+    "kanji": "外",
+    "unicode": "U+5916",
+    "kunyomi": "soto",
+    "onyomi": "gai"
+  },
+  {
+    "kanji": "前",
+    "unicode": "U+540D",
+    "kunyomi": "mae",
+    "onyomi": "zen"
+  },
+  {
+    "kanji": "後",
+    "unicode": "U+5F8C",
+    "kunyomi": "ushiro",
+    "onyomi": "go"
+  },
+  {
+    "kanji": "右",
+    "unicode": "U+3001",
+    "kunyomi": "migi",
+    "onyomi": "u"
+  },
+  {
+    "kanji": "左",
+    "unicode": "U+5DE6",
+    "kunyomi": "hidari",
+    "onyomi": "sa"
+  },
+  {
+    "kanji": "大",
+    "unicode": "U+5927",
+    "kunyomi": "oo",
+    "onyomi": "dai"
+  },
+  {
+    "kanji": "小",
+    "unicode": "U+5C0F",
+    "kunyomi": "chii",
+    "onyomi": "shou"
+  },
+  {
+    "kanji": "長",
+    "unicode": "U+9577",
+    "kunyomi": "naga",
+    "onyomi": "chou"
+  },
+  {
+    "kanji": "高",
+    "unicode": "U+9AD8",
+    "kunyomi": "taka",
+    "onyomi": "kou"
+  },
+  {
+    "kanji": "安",
+    "unicode": "U+5AE9",
+    "kunyomi": "yasu",
+    "onyomi": "an"
+  },
+  {
+    "kanji": "新",
+    "unicode": "U+65B0",
+    "kunyomi": "atara",
+    "onyomi": "shin"
+  },
+  {
+    "kanji": "古",
+    "unicode": "U+53E4",
+    "kunyomi": "furu",
+    "onyomi": "ko"
+  },
+  {
+    "kanji": "多",
+    "unicode": "U+591A",
+    "kunyomi": "oo",
+    "onyomi": "ta"
+  },
+  {
+    "kanji": "少",
+    "unicode": "U+5C11",
+    "kunyomi": "suko",
+    "onyomi": "shou"
+  },
+  {
+    "kanji": "行",
+    "unicode": "U+884C",
+    "kunyomi": "i",
+    "onyomi": "kou"
+  },
+  {
+    "kanji": "来",
+    "unicode": "U+6765",
+    "kunyomi": "ku",
+    "onyomi": "rai"
+  },
+  {
+    "kanji": "食",
+    "unicode": "U+98DF",
+    "kunyomi": "ta",
+    "onyomi": "shoku"
+  },
+  {
+    "kanji": "飲",
+    "unicode": "U+98F2",
+    "kunyomi": "no",
+    "onyomi": "in"
+  },
+  {
+    "kanji": "見",
+    "unicode": "U+8A0B",
+    "kunyomi": "mi",
+    "onyomi": "ken"
+  },
+  {
+    "kanji": "聞",
+    "unicode": "U+805E",
+    "kunyomi": "ki",
+    "onyomi": "bun"
+  },
+  {
+    "kanji": "読",
+    "unicode": "U+8AD1",
+    "kunyomi": "yo",
+    "onyomi": "doku"
+  },
+  {
+    "kanji": "書",
+    "unicode": "U+66F8",
+    "kunyomi": "ka",
+    "onyomi": "sho"
+  },
+  {
+    "kanji": "話",
+    "unicode": "U+8A71",
+    "kunyomi": "hana",
+    "onyomi": "wa"
+  },
+  {
+    "kanji": "買",
+    "unicode": "U+8CB7",
+    "kunyomi": "ka",
+    "onyomi": "bai"
+  },
+  {
+    "kanji": "立",
+    "unicode": "U+7ACB",
+    "kunyomi": "ta",
+    "onyomi": "ritsu"
+  },
+  {
+    "kanji": "休",
+    "unicode": "U+4F11",
+    "kunyomi": "yasu",
+    "onyomi": "kyuu"
+  },
+  {
+    "kanji": "出",
+    "unicode": "U+5FA1",
+    "kunyomi": "de",
+    "onyomi": "shutsu"
+  },
+  {
+    "kanji": "入",
+    "unicode": "U+5165",
+    "kunyomi": "hai",
+    "onyomi": "nyuu"
+  },
+  {
+    "kanji": "名",
+    "unicode": "U+540D",
+    "kunyomi": "na",
+    "onyomi": "mei"
+  },
+  {
+    "kanji": "白",
+    "unicode": "U+767D",
+    "kunyomi": "shiro",
+    "onyomi": "haku"
+  },
+  {
+    "kanji": "赤",
+    "unicode": "U+8D64",
+    "kunyomi": "aka",
+    "onyomi": "seki"
+  },
+  {
+    "kanji": "青",
+    "unicode": "U+9752",
+    "kunyomi": "ao",
+    "onyomi": "sei"
+  },
+  {
+    "kanji": "黒",
+    "unicode": "U+9BB2",
+    "kunyomi": "kuro",
+    "onyomi": "koku"
+  },
+  {
+    "kanji": "間",
+    "unicode": "U+9593",
+    "kunyomi": "aida",
+    "onyomi": "kan"
+  },
+  {
+    "kanji": "今",
+    "unicode": "U+4ECA",
+    "kunyomi": "ima",
+    "onyomi": "kon"
+  },
+  {
+    "kanji": "北",
+    "unicode": "U+5317",
+    "kunyomi": "kita",
+    "onyomi": "hoku"
+  },
+  {
+    "kanji": "南",
+    "unicode": "U+5357",
+    "kunyomi": "minami",
+    "onyomi": "nan"
+  },
+  {
+    "kanji": "東",
+    "unicode": "U+6771",
+    "kunyomi": "higashi",
+    "onyomi": "tou"
+  },
+  {
+    "kanji": "西",
+    "unicode": "U+857F",
+    "kunyomi": "nishi",
+    "onyomi": "sei"
+  },
+  {
+    "kanji": "毎",
+    "unicode": "U+621E",
+    "kunyomi": "goto",
+    "onyomi": "mai"
+  },
+  {
+    "kanji": "何",
+    "unicode": "U+4F55",
+    "kunyomi": "nani",
+    "onyomi": "ka"
+  },
+  {
+    "kanji": "電",
+    "unicode": "U+96FB",
+    "kunyomi": "inazuma",
+    "onyomi": "den"
+  },
+  {
+    "kanji": "語",
+    "unicode": "U+8A9E",
+    "kunyomi": "kata",
+    "onyomi": "go"
+  }
+]
