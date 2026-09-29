@@ -2,20 +2,23 @@
   {
     "kanji": "一",
     "unicode": "U+4E00",
-    "kunyomi": "hito",
-    "onyomi": "ichi"
+    "kunyomi": "ひと",
+    "onyomi": "いち",
+    "sentence": "これを一つください"
   },
   {
     "kanji": "二",
     "unicode": "U+4E8C",
-    "kunyomi": "futa",
-    "onyomi": "ni"
+    "kunyomi": "ふたつ",
+    "onyomi": "に",
+    "sentence": "ねこが二ついます"
   },
   {
     "kanji": "三",
     "unicode": "U+4E09",
     "kunyomi": "mi",
-    "onyomi": "san"
+    "onyomi": "san",
+    "sentence": "ペンが三つあります"
   },
   {
     "kanji": "四",
@@ -25,13 +28,13 @@
   },
   {
     "kanji": "五",
-    "unicode": "U+5404",
+    "unicode": "U+4E94",
     "kunyomi": "itsu",
     "onyomi": "go"
   },
   {
     "kanji": "六",
-    "unicode": "U+501D",
+    "unicode": "U+516D",
     "kunyomi": "mu",
     "onyomi": "roku"
   },
@@ -181,7 +184,7 @@
   },
   {
     "kanji": "女",
-    "unicode": "U+5773",
+    "unicode": "U+5973",
     "kunyomi": "onna",
     "onyomi": "jo"
   },
@@ -229,7 +232,7 @@
   },
   {
     "kanji": "母",
-    "unicode": "U+724F",
+    "unicode": "U+6BCD",
     "kunyomi": "haha",
     "onyomi": "bo"
   },
@@ -301,7 +304,7 @@
   },
   {
     "kanji": "気",
-    "unicode": "U+6017",
+    "unicode": "U+6C17",
     "kunyomi": "iki",
     "onyomi": "ki"
   },
@@ -337,7 +340,7 @@
   },
   {
     "kanji": "駅",
-    "unicode": "U+9900",
+    "unicode": "U+99C5",
     "kunyomi": "ekiba",
     "onyomi": "eki"
   },
@@ -469,7 +472,7 @@
   },
   {
     "kanji": "見",
-    "unicode": "U+8A0B",
+    "unicode": "U+898B",
     "kunyomi": "mi",
     "onyomi": "ken"
   },
@@ -481,7 +484,7 @@
   },
   {
     "kanji": "読",
-    "unicode": "U+8AD1",
+    "unicode": "U+8AAD",
     "kunyomi": "yo",
     "onyomi": "doku"
   },
@@ -553,7 +556,7 @@
   },
   {
     "kanji": "黒",
-    "unicode": "U+9BB2",
+    "unicode": "U+9ED2",
     "kunyomi": "kuro",
     "onyomi": "koku"
   },
@@ -589,7 +592,7 @@
   },
   {
     "kanji": "西",
-    "unicode": "U+857F",
+    "unicode": "U+897F",
     "kunyomi": "nishi",
     "onyomi": "sei"
   },
