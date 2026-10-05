@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(page_title="Result")
+
 # Pass/Fail Threshold Constants
 PASSING_FINAL_SCORE = 70.0
 MIN_DTW_SCORE = 0.0
@@ -18,6 +20,50 @@ def evaluate_kanji_attempt(item):
     )
 
     return is_overall_pass and is_stroke_order_valid
+
+def get_final_grade(accuracy_pct):
+    print("accuracy_pct",accuracy_pct)
+    grade = "E"
+    grade_color = "c32f27"
+    if accuracy_pct >= 90:
+        grade = "S"
+        grade_color = "fb8500"
+    elif accuracy_pct >= 80:
+        grade = "A"
+        grade_color = "ffb703"
+    elif accuracy_pct >= 70:
+        grade = "B"
+        grade_color = "219ebc"
+    elif accuracy_pct >= 60:
+        grade = "C"
+        grade_color = "6a994e"
+    elif accuracy_pct >= 50:
+        grade = "D"
+        grade_color = "386641"
+
+    # st.markdown(
+    #     f"""
+    #         <div style="
+    #             border-radius: 10px;
+    #             padding: 0px;
+    #             text-align: center;
+    #         ">
+    #             <div style="font-size: 20px; color: #555555; font-weight: 500; margin-bottom: 2px;">
+    #                 Grade
+    #             </div>
+    #             <div style="margin: 0px 0;">
+    #                 <span style="color: #{grade_color}; font-size: 42px; font-weight: bold; font-family: monospace;">
+    #                     {grade}
+    #                 </span>
+    #             </div>
+    #         </div>
+    #         """,
+    #     unsafe_allow_html=True
+    # )
+
+    return grade
+
+
 
 st.title("📊 Test Results")
 
@@ -43,13 +89,59 @@ for item in test_data:
     })
 
 total_kanji = len(evaluated_data)
-accuracy_pct = (passed_count / total_kanji) * 100
+accuracy_pct = (4 / total_kanji) * 100
+grade = get_final_grade(accuracy_pct)
 
 # 2. Display Top Banner Metrics
-m1, m2, m3 = st.columns(3)
-m1.metric("Correct Kanji", f"{passed_count} / {total_kanji}")
-m2.metric("Accuracy Rate", f"{accuracy_pct:.1f}%")
-m3.metric("Grade", "S" if accuracy_pct >= 90 else "A" if accuracy_pct >= 75 else "B" if accuracy_pct >= 60 else "F")
+with st.container(width="stretch"):
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Correct Kanji", f"{passed_count} / {total_kanji}")
+    m2.metric("Accuracy Rate", f"{accuracy_pct:.1f}%")
+    m3.metric("Grade", f"{grade}")
+    # with m1:
+    #     st.markdown(
+    #         f"""
+    #                 <div style="
+    #                     border-radius: 10px;
+    #                     padding: 0px;
+    #                     text-align: center;
+    #                 ">
+    #                     <div style="font-size: 20px; color: #555555; font-weight: 500; margin-bottom: 2px;">
+    #                         Correct Kanji
+    #                     </div>
+    #                     <div style="margin: 0px 0;">
+    #                         <span style= font-size: 42px; font-weight: bold; font-family: monospace;">
+    #                             {passed_count}/{total_kanji}
+    #                         </span>
+    #                     </div>
+    #                 </div>
+    #                 """,
+    #         unsafe_allow_html=True
+    #     )
+    #
+    # with m2:
+    #     st.markdown(
+    #         f"""
+    #                         <div style="
+    #                             border-radius: 10px;
+    #                             padding: 0px;
+    #                             text-align: center;
+    #                         ">
+    #                             <div style="font-size: 20px; color: #555555; font-weight: 500; margin-bottom: 2px;">
+    #                                 Accuracy Rate
+    #                             </div>
+    #                             <div style="margin: 0px 0;">
+    #                                 <span style= font-size: 42px; font-weight: bold; font-family: monospace;">
+    #                                     {accuracy_pct:.1f}%
+    #                                 </span>
+    #                             </div>
+    #                         </div>
+    #                         """,
+    #         unsafe_allow_html=True
+    #     )
+    #
+    # with m3:
+    #     get_final_grade(accuracy_pct)
 
 st.divider()
 
