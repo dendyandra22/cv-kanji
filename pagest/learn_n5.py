@@ -5,6 +5,7 @@ import torch
 from PIL import Image
 import json
 import random
+import time
 
 from module.data import load_kanji_metadata
 from module.preprocessing import normalize_character_bbox, resample_stroke_spatial
@@ -54,7 +55,37 @@ def batches_to_idx(selected_batches: list, batch_dict: dict):
     for name in selected_batches: sel_idx.extend(list(batch_dict[name]))
     return sel_idx
 
-
+# def run_countdown(seconds=10):
+#     """
+#     Runs a real-time countdown timer in red text from `seconds` down to 0.
+#     Displays a notification toast and alert when time expires.
+#     """
+#     # Create a dynamic placeholder container
+#     timer_placeholder = st.empty()
+#
+#     for t in range(seconds, -1, -1):
+#         # Format as MM:SS (e.g., 00:10, 00:09) or simple seconds count
+#         minutes, secs = divmod(t, 60)
+#         time_str = f"{minutes:02d}:{secs:02d}"
+#
+#         # Render styled large red text
+#         timer_placeholder.markdown(
+#             f"""
+#             <div style="text-align: right; margin: 10px 0;">
+#                 <span style="color: #b92548; font-size: 24px; font-weight: bold; font-family: monospace;">
+#                     ⏱️ {time_str}
+#                 </span>
+#             </div>
+#             """,
+#             unsafe_allow_html=True,
+#         )
+#
+#         # Pause for 1 second unless we hit zero
+#         if t > 0:
+#             time.sleep(1)
+#
+#     # Trigger popup notifications when time reaches 0
+#     st.toast("⏰ Time's up!", icon="🚨")
 
 
 
@@ -93,13 +124,18 @@ if not st.session_state.in_practice:
     idx_range = range(len(kanji_metadata))
     batch_size = 15
     idx_batch = {}
-    for i, j in enumerate(range(0, len(idx_range), batch_size)):
-        idx_batch[f"Batch {i+1}"] = idx_range[j:j + batch_size]
+    for i, j in enumerate(range(0, len(idx_range), batch_size), start=1):
+        batch_end = i * batch_size if i * batch_size <= len(idx_range) else len(idx_range)
+        if i == 1:
+            idx_batch[f"Kanji 1~{batch_end}"] = idx_range[j:j + batch_size]
+            continue
+
+        idx_batch[f"Kanji {(i-1)*(batch_size)+1}~{batch_end}"] = idx_range[j:j + batch_size]
 
     batch_opt = st.multiselect(
         "Select Kanji Batch",
         idx_batch,
-        default=["Batch 1"],
+        default=[list(idx_batch.keys())[0]],
     )
 
     st.divider()
@@ -108,11 +144,18 @@ if not st.session_state.in_practice:
         col1, col2, col3 = st.columns([1,1,1])
 
         with col1:
-            # sett_n_kanji = st.slider("Number of Kanji Appear", value=10, max_value=len(kanji_metadata), min_value=1, step=1)
-            sett_random_kanji = st.toggle("Shuffle Kanji")
-            timeout_btn = st.toggle("Set Timeout")
-            if timeout_btn:
-                sett_answer_timeout = st.number_input("Select Timeout (seconds)",value=10, max_value=20, width=150)
+            sett_n_kanji = batch_size
+            sett_random_kanji = False
+
+            if st.toggle("Enable Custom Setting"):
+                sett_n_kanji = st.slider("Number of Kanji Appear", value=batch_size, max_value=len(batch_opt)*batch_size, min_value=1, step=1)
+                sett_random_kanji = st.toggle("Shuffle Kanji")
+                timeout_opt = {"10s": 10, "15s": 15, "20s": 20, }
+                # sett_answer_timeout = st.pills("Time out",
+                #                                timeout_opt,
+                #                                selection_mode="single",
+                #                                default=["10s"]
+                #                                )
 
 
 
@@ -121,7 +164,8 @@ if not st.session_state.in_practice:
         if st.button("Start Practice", type="primary", disabled=(len(batch_opt) < 1)):
             st.session_state.in_practice = True
             st.session_state.kanji_selected_idx = batches_to_idx(batch_opt, idx_batch)
-            st.session_state.sett_n_kanji = len(st.session_state.kanji_selected_idx)
+            st.session_state.sett_n_kanji = sett_n_kanji #len(st.session_state.kanji_selected_idx)
+            # st.session_state.sett_answer_timeout = timeout_opt[sett_answer_timeout]
             st.session_state.sett_random_kanji = sett_random_kanji
             st.session_state.sett_random_seed = random.randint(1,100)
             st.rerun()
@@ -139,19 +183,36 @@ else:
     if "kanji_index" not in st.session_state:
         st.session_state.kanji_index = 0
 
+    if "test_score" not in st.session_state:
+        st.session_state.test_score = []
+
     # initiate current kanji
     if st.session_state.sett_random_kanji:
         random.seed(st.session_state.sett_random_seed)
         random.shuffle(selected_kanji_metadata)
 
     current_kanji = selected_kanji_metadata[st.session_state.kanji_index]
-
+    kanji_in_question = current_kanji.get('kanji', '')
     target_svg_path = f"data/kanjivg/{current_kanji['unicode'].replace('U+', '0')}.svg"
     ref_strokes = get_kanji_stroke(target_svg_path)
     target_img = generate_stroke_order_image(target_svg_path, size=350, line_thickness=3)
     # practice_container =
     with st.container():
-        st.subheader(f"✏️ Writting Practice! ({st.session_state.kanji_index + 1}/{st.session_state.sett_n_kanji})")
+        headcol1, headcol2, headcol3 = st.columns([1, 1, .8])
+
+        with headcol1:
+            st.subheader(f"✏️ Writting Practice! ({st.session_state.kanji_index + 1}/{st.session_state.sett_n_kanji})")
+
+        # with headcol3:
+            # run_countdown(st.session_state.sett_answer_timeout)
+            # progress_text = "Operation in progress. Please wait."
+            # my_bar = st.progress(0, text=progress_text)
+            #
+            # for percent_complete in range(100):
+            #     # time.sleep(1)
+            #     my_bar.progress(percent_complete + 1, text=progress_text)
+            # # time.sleep(1)
+            # # my_bar.empty()
 
         col1, col2, col_results = st.columns([1, 1, .8])
 
@@ -285,7 +346,7 @@ else:
                     st.info("Draw on the canvas to compute the live score.")
 
     st.divider()
-    nav_col1, nav_col2, nav_col3 = st.columns([1, 2, 1])
+    nav_col1, nav_col2, nav_col3 = st.columns([1, 1, .8])
 
     with nav_col1:
         if st.button("← Previous", disabled=(st.session_state.kanji_index == 0)):
@@ -309,14 +370,27 @@ else:
             if st.button("Next Kanji →", type="primary"):
                 st.session_state.kanji_index += 1
                 st.session_state.canvas_key += 1
+                st.session_state.test_score.append({"kanji": kanji_in_question,
+                                                    "final_score": final_score,
+                                                    "direction_score": direction_score,
+                                                    "dtw_score": dtw_score,
+                                                    "ssim_score": ssim_score,
+                                                    "cnn_similarity": cnn_similarity
+                                                    })
                 st.rerun()
         else:
             if st.button("Finish Practice 🎉", type="primary"):
-                st.balloons()
+                st.session_state.test_score.append({"kanji": kanji_in_question,
+                                                    "final_score": final_score,
+                                                    "direction_score": direction_score,
+                                                    "dtw_score": dtw_score,
+                                                    "ssim_score": ssim_score,
+                                                    "cnn_similarity": cnn_similarity
+                                                    })
                 st.session_state.kanji_index = 0
                 st.session_state.in_practice = False
                 _ = st.session_state.pop("sett_n_kanji", None)
                 _ = st.session_state.pop("sett_random_kanji", None)
                 _ = st.session_state.pop("sett_random_seed", None)
                 st.session_state.canvas_key += 1
-                st.rerun()
+                st.switch_page("pagest/score_page.py")
