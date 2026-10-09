@@ -37,6 +37,7 @@ def evaluate_single_stroke(user_stroke, ref_stroke, max_dtw_dist=1000.0):
 
     # Normalize DTW distance into a 0 - 100 score (lower dist -> higher score)
     # shape_score = max(0.0, 100.0 * (1.0 - (dtw_dist / max_dtw_dist)))
+    shape_score = 100.0 * np.exp(-dtw_dist / max_dtw_dist)
 
     # 2. Direction Check
     dir_sim = evaluate_stroke_direction(user_stroke, ref_stroke)
@@ -47,7 +48,7 @@ def evaluate_single_stroke(user_stroke, ref_stroke, max_dtw_dist=1000.0):
 
     return {
         "dtw_distance": float(dtw_dist),
-        "shape_score": -1, #round(shape_score, 5),
+        "shape_score": round(shape_score, 5),
         "direction_score": round(direction_score, 5),
         "direction_correct": direction_correct
     }
@@ -74,10 +75,23 @@ def evaluate_character_sequence(user_strokes, ref_strokes):
     avg_shape = np.mean([r["shape_score"] for r in results]) if results else 0.0
     avg_dir = np.mean([r["direction_score"] for r in results]) if results else 0.0
 
+    if not count_match:
+        total_stroke_score = int((num_user / num_ref) * 100) if num_user < num_ref else 0
+        return {
+            "count_match": count_match,
+            "user_stroke_count": num_user,
+            "target_stroke_count": num_ref,
+            "total_stroke_score": total_stroke_score,
+            "avg_shape_score": 0,  # penalize incorrect num of stroke order
+            "avg_direction_score": 0, # penalize incorrect num of stroke order
+            "stroke_breakdown": results
+        }
+
     return {
         "count_match": count_match,
         "user_stroke_count": num_user,
         "target_stroke_count": num_ref,
+        "total_stroke_score": int((num_user / num_ref) * 100),
         "avg_shape_score": avg_shape, #round(avg_shape, 2),
         "avg_direction_score": round(avg_dir, 2),
         "stroke_breakdown": results
@@ -93,7 +107,7 @@ def rasterize_svg_to_canvas(svg_path, canvas_shape=(350, 350), line_thickness=6)
     try:
         paths, attributes = svg2paths(svg_path)
 
-        # KanjiVG standard viewBox is 109x109, scale it to match Streamlit canvas (350x350)
+        # KanjiVG standard viewBox is 109x109, scale it to match Streamlit canvas size
         scale_x = canvas_shape[1] / 109.0
         scale_y = canvas_shape[0] / 109.0
 
