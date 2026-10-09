@@ -13,6 +13,7 @@ from module.svg import extract_kanjivg_strokes, svg_to_numpy, numpy_to_target_te
 from module.cnn import predict_kanji_cnn, KanjiCNN, predict_kanji_cnn2, preprocess_canvas_image
 from module.cnn_train import SiameseKanjiNet
 from module.utility import print_log
+from pages.sidebar import get_sidebar, get_credit_footer
 
 st.set_page_config(page_title="Exercise Kanji N5", page_icon="💪")
 
@@ -65,18 +66,18 @@ cnn_model = load_kanji_cnn()
 kanji_metadata = load_kanji_data(shuffle=False)
 
 # Sidebar Screen
-st.sidebar.header("Practice Control")
-# n_kanji = st.sidebar.slider("Number of Kanji", value=20, max_value=103, min_value=1, step=1)
-# random_kanji = st.sidebar.toggle("Randomize Kanji", value=False)
+get_sidebar()
 
 if "in_practice" not in st.session_state:
     st.session_state.in_practice = False
 
 # VIEW 1: Welcome Screen
 if not st.session_state.in_practice:
+
+    st.title("💪 Exercise Kanji Level N5", text_alignment="center")
+    st.image("static/img/exercise.jpg", width=500, )
     st.markdown(
         """
-        # 💪 Exercise Kanji Level N5
         In this test, your skill will be tested. Be careful!
         
         ### About Exercise
@@ -112,14 +113,15 @@ if not st.session_state.in_practice:
         col1, col2, col3 = st.columns([1,1,1])
 
         with col1:
-            # sett_n_kanji = st.slider("Number of Kanji Appear", value=10, max_value=len(kanji_metadata), min_value=1, step=1)
+            sett_n_kanji = st.slider("Number of Kanji Appear", value=batch_size, max_value=len(batch_opt)*batch_size, min_value=1, step=1)
+            sett_question_eng = st.toggle("Show Hint in English", value=True)
             # sett_random_kanji = st.toggle("Shuffle Kanji")
-            timeout_opt = {"10s": 10, "15s": 15, "20s": 20,}
-            sett_answer_timeout = st.pills("Time out",
-                                           timeout_opt,
-                                           selection_mode="single",
-                                           default=["10s"]
-                                           )
+            # timeout_opt = {"10s": 10, "15s": 15, "20s": 20,}
+            # sett_answer_timeout = st.pills("Time out",
+            #                                timeout_opt,
+            #                                selection_mode="single",
+            #                                default=["10s"]
+            #                                )
 
 
 
@@ -129,10 +131,11 @@ if not st.session_state.in_practice:
         if st.button("Start Exercise", type="primary", disabled=(len(batch_opt) < 1)):
             st.session_state.in_practice = True
             st.session_state.kanji_selected_idx = batches_to_idx(batch_opt, idx_batch)
-            st.session_state.sett_n_kanji = 3#len(st.session_state.kanji_selected_idx)
+            st.session_state.sett_n_kanji = sett_n_kanji
             st.session_state.sett_random_kanji = True
             st.session_state.sett_random_seed = random.randint(1,100)
             st.session_state.test_score = []
+            st.session_state.sett_question_eng = sett_question_eng
             st.rerun()
         st.space("stretch")
 
@@ -163,7 +166,11 @@ else:
         st.subheader(f"✏️ Writting Exercise! ({st.session_state.kanji_index + 1}/{st.session_state.sett_n_kanji})")
 
         kanji_in_question = current_kanji.get('kanji', '')
-        kanji_meaning = current_kanji.get('meaning', '')
+        if st.session_state.sett_question_eng:
+            kanji_meaning = current_kanji.get('meaning', '')
+        else:
+            kanji_meaning = current_kanji.get('kunyomi', '')
+            kanji_meaning = current_kanji.get('onyomi', '') if kanji_meaning == '-' else kanji_meaning
         print(kanji_in_question)
         sent_question = current_kanji.get('sentence', '')
         sent_question = sent_question.replace(kanji_in_question, f" [{kanji_meaning}] ")
@@ -232,14 +239,15 @@ else:
                     user_strokes = [resample_stroke_spatial(s, num_points=100) for s in user_norm]
                     seq_results = evaluate_character_sequence(user_strokes, ref_strokes)
 
-                    dtw_score = seq_results["avg_shape_score"]
+                    # dtw_score = seq_results["avg_shape_score"]
+                    total_stroke_score = seq_results["total_stroke_score"]
                     direction_score = seq_results["avg_direction_score"]
 
                     # --- Static Processing (SSIM & CNN) ---
                     canvas_img_rgba = canvas_result.image_data  # RGBA numpy array
 
                     # Compute SSIM score
-                    ssim_score = evaluate_ssim(canvas_img_rgba, target_svg_path, canvas_size=canvas_size)
+                    # ssim_score = evaluate_ssim(canvas_img_rgba, target_svg_path, canvas_size=canvas_size)
 
                     # Compute CNN prediction confidence
                     user_tensor = preprocess_canvas_image(canvas_img_rgba)
@@ -252,14 +260,12 @@ else:
                     # print("svg_to_numpy", np_img.shape, type(np_img))
                     # print("target_tensor", target_tensor.shape, type(target_tensor))
 
-
                     # --- Final Weighted Score Calculation ---
-                    w1, w2, w3, w4 = 0.1, 0.5, 0.05, 0.35
+                    w1, w2, w3 = 0.05, 0.3, 0.65  # 0.0, 0.425, 0.425, 0.15
                     final_score = round(
-                        (w1 * dtw_score) +
+                        (w1 * total_stroke_score) +
                         (w2 * direction_score) +
-                        (w3 * ssim_score) +
-                        (w4 * cnn_similarity),
+                        (w3 * cnn_similarity),
                         2
                     )
 
@@ -292,7 +298,8 @@ else:
             #     else:
             #         st.info("Draw on the canvas to compute the live score.")
 
-    st.divider()
+    # st.divider()
+    st.container(height=50, border=False)
     nav_col1, nav_col2, nav_col3 = st.columns([1, 2, 1])
 
     with nav_col1:
@@ -321,8 +328,7 @@ else:
                 st.session_state.test_score.append({"kanji":kanji_in_question,
                                                     "final_score": final_score,
                                                     "direction_score": direction_score,
-                                                    "dtw_score": dtw_score,
-                                                    "ssim_score": ssim_score,
+                                                    "total_stroke_score": total_stroke_score,
                                                     "cnn_similarity": cnn_similarity
                                                     })
                 print_log(f"len test score: {len(st.session_state.test_score)}")
@@ -340,10 +346,12 @@ else:
                 st.session_state.test_score.append({"kanji": kanji_in_question,
                                                     "final_score": final_score,
                                                     "direction_score": direction_score,
-                                                    "dtw_score": dtw_score,
-                                                    "ssim_score": ssim_score,
+                                                    "total_stroke_score": total_stroke_score,
                                                     "cnn_similarity": cnn_similarity
                                                     })
                 print_log(f"len test score: {len(st.session_state.test_score)}")
                 print_log(st.session_state.test_score[-1])
-                st.switch_page("pagest/score_page.py")
+                st.switch_page("pages/score_page.py", query_params={"page_source": "test_n5.py"})
+
+# Credit Section
+get_credit_footer()

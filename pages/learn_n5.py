@@ -10,12 +10,14 @@ import time
 from module.data import load_kanji_metadata
 from module.preprocessing import normalize_character_bbox, resample_stroke_spatial
 from module.evaluator import evaluate_character_sequence, evaluate_ssim, calculate_similarity_score
-from module.svg import extract_kanjivg_strokes, svg_to_numpy, numpy_to_target_tensor, rasterize_svg_to_image, generate_stroke_order_image
-from module.cnn import predict_kanji_cnn, KanjiCNN, predict_kanji_cnn2, preprocess_canvas_image
+from module.svg import extract_kanjivg_strokes, svg_to_numpy, numpy_to_target_tensor, rasterize_svg_to_image, generate_stroke_order_image, render_animated_kanji
+from module.cnn import preprocess_canvas_image
 from module.cnn_train import SiameseKanjiNet
 from module.utility import print_log
+from pages.cards import menu_card, batch_card
+from pages.sidebar import get_sidebar, get_credit_footer
 
-st.set_page_config(page_title="Practice Kanji N5", page_icon="🔰", layout="wide")
+st.set_page_config(page_title="Kanji Practice: N5", page_icon="🔰", layout="wide")
 
 # Main Function
 @st.cache_resource
@@ -55,88 +57,116 @@ def batches_to_idx(selected_batches: list, batch_dict: dict):
     for name in selected_batches: sel_idx.extend(list(batch_dict[name]))
     return sel_idx
 
-# def run_countdown(seconds=10):
-#     """
-#     Runs a real-time countdown timer in red text from `seconds` down to 0.
-#     Displays a notification toast and alert when time expires.
-#     """
-#     # Create a dynamic placeholder container
-#     timer_placeholder = st.empty()
-#
-#     for t in range(seconds, -1, -1):
-#         # Format as MM:SS (e.g., 00:10, 00:09) or simple seconds count
-#         minutes, secs = divmod(t, 60)
-#         time_str = f"{minutes:02d}:{secs:02d}"
-#
-#         # Render styled large red text
-#         timer_placeholder.markdown(
-#             f"""
-#             <div style="text-align: right; margin: 10px 0;">
-#                 <span style="color: #b92548; font-size: 24px; font-weight: bold; font-family: monospace;">
-#                     ⏱️ {time_str}
-#                 </span>
-#             </div>
-#             """,
-#             unsafe_allow_html=True,
-#         )
-#
-#         # Pause for 1 second unless we hit zero
-#         if t > 0:
-#             time.sleep(1)
-#
-#     # Trigger popup notifications when time reaches 0
-#     st.toast("⏰ Time's up!", icon="🚨")
-
-
-
-
 # Load Instance
 print_log("Starting apps...")
 cnn_model = load_kanji_cnn()
 kanji_metadata = load_kanji_data(shuffle=False)
 
-# Sidebar Screen
-st.sidebar.header("Practice Control")
-# n_kanji = st.sidebar.slider("Number of Kanji", value=20, max_value=103, min_value=1, step=1)
-# random_kanji = st.sidebar.toggle("Randomize Kanji", value=False)
+get_sidebar()
 
 if "in_practice" not in st.session_state:
     st.session_state.in_practice = False
 
-# VIEW 1: Welcome Screen
+# N5 Welcome Screen
 if not st.session_state.in_practice:
     st.markdown(
         """
-        # 🔰 Practice Kanji Level N5
-        In this practice, you will learn how to write **103 kanji**. This kanji is very common and mostly used in daily life.
-        So, make sure to learn it properly okay 😉.
-        
-        ### About Practice
-        In this apps You will learn writting kanji perfectly in batch. Each batch by default is contain 15 kanji.
+        # 🔰 Practice Kanji: Level N5
+        In this level, you will learn **103 essential Kanji** commonly used in daily life. Mastering these foundational characters will give you a solid start on your Japanese journey!
 
-        You can set custom setting use setting option below.
-        
-        When ready click button below :)
+        ### 💡 Practice Overview
+        * **Batch System:** Kanji are organized into sets of **15 characters** for focused, manageable sessions.
+        * **Scoring:** Each character is evaluated on **stroke order**, **stroke direction**, and **shape accuracy**.
+        * **Passing Grade:** Score **70 or above** to pass, or try again to perfect your writing!
+
+        You can customize your batch size and learning settings below whenever you're ready.
         """
     )
+
     st.divider()
-    st.subheader("Kanji Batch Selection")
+    st.subheader("Select a Kanji Batch")
     idx_range = range(len(kanji_metadata))
     batch_size = 15
     idx_batch = {}
     for i, j in enumerate(range(0, len(idx_range), batch_size), start=1):
         batch_end = i * batch_size if i * batch_size <= len(idx_range) else len(idx_range)
-        if i == 1:
-            idx_batch[f"Kanji 1~{batch_end}"] = idx_range[j:j + batch_size]
-            continue
+        idx_batch[f"kanji {i}"] = idx_range[j:j + batch_size]
 
-        idx_batch[f"Kanji {(i-1)*(batch_size)+1}~{batch_end}"] = idx_range[j:j + batch_size]
+    # ============= batch card =============
+    batch_opt = []
 
-    batch_opt = st.multiselect(
-        "Select Kanji Batch",
-        idx_batch,
-        default=[list(idx_batch.keys())[0]],
-    )
+    with st.container(horizontal_alignment="center", vertical_alignment="center", border=False):
+        colA, col1, col2, col3, col4, colB = st.columns([0.5,1,1,1,1,0.5])
+
+        with col1.container(width=350, horizontal_alignment="center", border=True):
+            expander_data = [kanji_metadata[i] for i in idx_batch["kanji 1"]]
+            sel_group_1 = batch_card(
+                label="Kanji Group 1",
+                expander_data=expander_data,
+            )
+
+        if sel_group_1:
+            batch_opt.append("kanji 1")
+
+        with col2.container(width=350, horizontal_alignment="center", border=True):
+            expander_data = [kanji_metadata[i] for i in idx_batch["kanji 2"]]
+            sel_group_2 = batch_card(
+                label="Kanji Group 2",
+                expander_data=expander_data,
+            )
+
+        if sel_group_2:
+            batch_opt.append("kanji 2")
+
+        with col3.container(width=350, horizontal_alignment="center", border=True):
+            expander_data = [kanji_metadata[i] for i in idx_batch["kanji 3"]]
+            sel_group_3 = batch_card(
+                label="Kanji Group 3",
+                expander_data=expander_data,
+            )
+
+        if sel_group_3:
+            batch_opt.append("kanji 3")
+
+        with col4.container(width=350, horizontal_alignment="center", border=True):
+            expander_data = [kanji_metadata[i] for i in idx_batch["kanji 4"]]
+            sel_group_4 = batch_card(
+                label="Kanji Group 4",
+                expander_data=expander_data,
+            )
+
+        if sel_group_4:
+            batch_opt.append("kanji 4")
+
+        with col1.container(width=350, horizontal_alignment="center", border=True):
+            expander_data = [kanji_metadata[i] for i in idx_batch["kanji 5"]]
+            sel_group_5 = batch_card(
+                label="Kanji Group 5",
+                expander_data=expander_data,
+            )
+
+        if sel_group_5:
+            batch_opt.append("kanji 5")
+
+        with col2.container(width=350, horizontal_alignment="center", border=True):
+            expander_data = [kanji_metadata[i] for i in idx_batch["kanji 6"]]
+            sel_group_6 = batch_card(
+                label="Kanji Group 6",
+                expander_data=expander_data,
+            )
+
+        if sel_group_6:
+            batch_opt.append("kanji 6")
+
+        with col3.container(width=350, horizontal_alignment="center", border=True):
+            expander_data = [kanji_metadata[i] for i in idx_batch["kanji 7"]]
+            sel_group_7 = batch_card(
+                label="Kanji Group 7",
+                expander_data=expander_data,
+            )
+
+        if sel_group_7:
+            batch_opt.append("kanji 7")
 
     st.divider()
     st.subheader("Practice Setting")
@@ -148,28 +178,37 @@ if not st.session_state.in_practice:
             sett_random_kanji = False
 
             if st.toggle("Enable Custom Setting"):
-                sett_n_kanji = st.slider("Number of Kanji Appear", value=batch_size, max_value=len(batch_opt)*batch_size, min_value=1, step=1)
-                sett_random_kanji = st.toggle("Shuffle Kanji")
-                timeout_opt = {"10s": 10, "15s": 15, "20s": 20, }
-                # sett_answer_timeout = st.pills("Time out",
-                #                                timeout_opt,
-                #                                selection_mode="single",
-                #                                default=["10s"]
-                #                                )
-
+                if batch_opt:
+                    sett_n_kanji = st.slider("Number of Kanji Appear", value=batch_size, max_value=len(batch_opt)*batch_size, min_value=1, step=1)
+                    sett_random_kanji = st.toggle("Shuffle Kanji")
+                    timeout_opt = {"10s": 10, "15s": 15, "20s": 20, }
+                    # sett_answer_timeout = st.pills("Time out",
+                    #                                timeout_opt,
+                    #                                selection_mode="single",
+                    #                                default=["10s"]
+                    #                                )
+                else:
+                    st.error("Please select kanji group first")
 
 
     with st.container(horizontal=True):
-        st.space("stretch")
-        if st.button("Start Practice", type="primary", disabled=(len(batch_opt) < 1)):
-            st.session_state.in_practice = True
-            st.session_state.kanji_selected_idx = batches_to_idx(batch_opt, idx_batch)
-            st.session_state.sett_n_kanji = sett_n_kanji #len(st.session_state.kanji_selected_idx)
-            # st.session_state.sett_answer_timeout = timeout_opt[sett_answer_timeout]
-            st.session_state.sett_random_kanji = sett_random_kanji
-            st.session_state.sett_random_seed = random.randint(1,100)
-            st.rerun()
-        st.space("stretch")
+            st.space("stretch")
+            if st.button("Start Practice", type="primary"):
+                if len(batch_opt) < 1:
+                    st.toast("Please select kanji group first!")
+
+                else:
+                    st.session_state.in_practice = True
+                    st.session_state.kanji_selected_idx = batches_to_idx(batch_opt, idx_batch)
+                    st.session_state.sett_n_kanji = sett_n_kanji #len(st.session_state.kanji_selected_idx)
+                    # st.session_state.sett_answer_timeout = timeout_opt[sett_answer_timeout]
+                    st.session_state.sett_random_kanji = sett_random_kanji
+                    st.session_state.sett_random_seed = random.randint(1,100)
+                    st.rerun()
+            st.space("stretch")
+
+    # Credit Section
+    get_credit_footer()
 
 # VIEW 2: Practice Screen
 else:
@@ -195,7 +234,7 @@ else:
     kanji_in_question = current_kanji.get('kanji', '')
     target_svg_path = f"data/kanjivg/{current_kanji['unicode'].replace('U+', '0')}.svg"
     ref_strokes = get_kanji_stroke(target_svg_path)
-    target_img = generate_stroke_order_image(target_svg_path, size=350, line_thickness=3)
+    # target_img = generate_stroke_order_image(target_svg_path, size=350, line_thickness=3)
     # practice_container =
     with st.container():
         headcol1, headcol2, headcol3 = st.columns([1, 1, .8])
@@ -217,8 +256,9 @@ else:
         col1, col2, col_results = st.columns([1, 1, .8])
 
         with col1:
-            st.subheader("Kanji Stroke Order")
-            st.image(target_img, caption="Strokes ordered kanji", width=200)
+            st.subheader(f"Kanji Stroke Order ({len(ref_strokes)} strokes)")
+            # st.image(target_img, caption="Strokes ordered kanji", width=200)
+            render_animated_kanji(character=current_kanji["kanji"], width=200, height=200)
             st.markdown(
                 f"""
                 ### **{current_kanji['meaning'].title()}**
@@ -239,7 +279,7 @@ else:
             canvas_size = (300,300)
             canvas_result = st_canvas(
                 fill_color="rgba(255, 165, 0, 0.3)",
-                stroke_width=10,
+                stroke_width=8,
                 stroke_color="#000000",
                 background_color="#FFFFFF",
                 height=canvas_size[0],
@@ -289,14 +329,15 @@ else:
                     user_strokes = [resample_stroke_spatial(s, num_points=100) for s in user_norm]
                     seq_results = evaluate_character_sequence(user_strokes, ref_strokes)
 
-                    dtw_score = seq_results["avg_shape_score"]
+                    # dtw_score = seq_results["avg_shape_score"]
+                    total_stroke_score = seq_results["total_stroke_score"]
                     direction_score = seq_results["avg_direction_score"]
 
                     # --- Static Processing (SSIM & CNN) ---
                     canvas_img_rgba = canvas_result.image_data  # RGBA numpy array
 
                     # Compute SSIM score
-                    ssim_score = evaluate_ssim(canvas_img_rgba, target_svg_path, canvas_size=canvas_size)
+                    # ssim_score = evaluate_ssim(canvas_img_rgba, target_svg_path, canvas_size=canvas_size)
 
                     # Compute CNN prediction confidence
                     user_tensor = preprocess_canvas_image(canvas_img_rgba)
@@ -311,12 +352,11 @@ else:
 
 
                     # --- Final Weighted Score Calculation ---
-                    w1, w2, w3, w4 = 0.0, 0.425, 0.425, 0.15
+                    w1, w2, w3 = 0.05, 0.3, 0.65 #0.0, 0.425, 0.425, 0.15
                     final_score = round(
-                        (w1 * dtw_score) +
+                        (w1 * total_stroke_score) +
                         (w2 * direction_score) +
-                        (w3 * ssim_score) +
-                        (w4 * cnn_similarity),
+                        (w3 * cnn_similarity),
                         2
                     )
 
@@ -329,10 +369,10 @@ else:
                     # --- 4-Component Score Breakdown Grid ---
                     # st.write("### Metric Breakdown")
                     # m1, m2, m3, m4 = st.columns(4)
-                    # st.metric("1. Stroke Order (DTW)", f"{dtw_score:.3f}%")
-                    st.metric("2. Direction Score", f"{direction_score:.3f}%")
-                    st.metric("3. SSIM Proportion", f"{ssim_score:.3f}%")
-                    st.metric("4. CNN Similarity", f"{cnn_similarity:.3f}%")
+                    st.metric("1. Total Stroke", f"{total_stroke_score}% ({seq_results['user_stroke_count']} of {seq_results['target_stroke_count']})")
+                    st.metric("2. Direction Score", f"{direction_score:.1f}%")
+                    # st.metric("3. SSIM Proportion", f"{ssim_score:.1f}%")
+                    st.metric("4. CNN Similarity", f"{cnn_similarity:.1f}%")
 
                     # # --- Stroke-by-Stroke Details ---
                     # st.write("### Detailed Stroke Breakdown")
@@ -345,7 +385,8 @@ else:
                 else:
                     st.info("Draw on the canvas to compute the live score.")
 
-    st.divider()
+    # st.divider()
+    st.container(height=50, border=False)
     nav_col1, nav_col2, nav_col3 = st.columns([1, 1, .8])
 
     with nav_col1:
@@ -367,14 +408,13 @@ else:
 
     with nav_col3:
         if st.session_state.kanji_index < st.session_state.sett_n_kanji - 1:
-            if st.button("Next Kanji →", type="primary"):
+            if st.button("Next Kanji →", type="primary", disabled=(len(user_strokes_raw) < 1)):
                 st.session_state.kanji_index += 1
                 st.session_state.canvas_key += 1
                 st.session_state.test_score.append({"kanji": kanji_in_question,
                                                     "final_score": final_score,
                                                     "direction_score": direction_score,
-                                                    "dtw_score": dtw_score,
-                                                    "ssim_score": ssim_score,
+                                                    "total_stroke_score": total_stroke_score,
                                                     "cnn_similarity": cnn_similarity
                                                     })
                 st.rerun()
@@ -383,8 +423,7 @@ else:
                 st.session_state.test_score.append({"kanji": kanji_in_question,
                                                     "final_score": final_score,
                                                     "direction_score": direction_score,
-                                                    "dtw_score": dtw_score,
-                                                    "ssim_score": ssim_score,
+                                                    "total_stroke_score": total_stroke_score,
                                                     "cnn_similarity": cnn_similarity
                                                     })
                 st.session_state.kanji_index = 0
@@ -393,4 +432,7 @@ else:
                 _ = st.session_state.pop("sett_random_kanji", None)
                 _ = st.session_state.pop("sett_random_seed", None)
                 st.session_state.canvas_key += 1
-                st.switch_page("pagest/score_page.py")
+                st.switch_page("pages/score_page.py", query_params={"page_source": "learn_n5.py"})
+
+    # Credit Section
+    get_credit_footer()

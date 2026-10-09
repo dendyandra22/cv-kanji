@@ -1,11 +1,16 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Result")
+from pages.sidebar import get_sidebar, get_credit_footer
+
+st.set_page_config(page_title="Result", layout="wide")
+
+# Sidebar Screen
+get_sidebar()
 
 # Pass/Fail Threshold Constants
 PASSING_FINAL_SCORE = 70.0
-MIN_DTW_SCORE = 0.0
+MIN_TOTAL_STROKE_SCORE = 100.0
 MIN_DIRECTION_SCORE = 70.0
 
 
@@ -15,7 +20,7 @@ def evaluate_kanji_attempt(item):
     """
     is_overall_pass = item["final_score"] >= PASSING_FINAL_SCORE
     is_stroke_order_valid = (
-            item["dtw_score"] >= MIN_DTW_SCORE and
+            item["total_stroke_score"] >= MIN_TOTAL_STROKE_SCORE and
             item["direction_score"] >= MIN_DIRECTION_SCORE
     )
 
@@ -64,8 +69,9 @@ def get_final_grade(accuracy_pct):
     return grade
 
 
-
-st.title("📊 Test Results")
+col1, col2, col3 = st.columns([0.15, 2, 0.15], vertical_alignment="center")
+with col2:
+    st.title("📊 Test Results")
 
 test_data = st.session_state.get("test_score", [])
 
@@ -89,15 +95,16 @@ for item in test_data:
     })
 
 total_kanji = len(evaluated_data)
-accuracy_pct = (4 / total_kanji) * 100
+accuracy_pct = (passed_count / total_kanji) * 100
 grade = get_final_grade(accuracy_pct)
 
 # 2. Display Top Banner Metrics
-with st.container(width="stretch"):
-    m1, m2, m3 = st.columns(3)
-    m1.metric("Correct Kanji", f"{passed_count} / {total_kanji}")
-    m2.metric("Accuracy Rate", f"{accuracy_pct:.1f}%")
-    m3.metric("Grade", f"{grade}")
+with col2:
+    with st.container(width="stretch"):
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Correct Kanji", f"{passed_count} / {total_kanji}")
+        m2.metric("Accuracy Rate", f"{accuracy_pct:.1f}%")
+        m3.metric("Grade", f"{grade}")
     # with m1:
     #     st.markdown(
     #         f"""
@@ -143,52 +150,61 @@ with st.container(width="stretch"):
     # with m3:
     #     get_final_grade(accuracy_pct)
 
-st.divider()
+
 
 # 3. Categorized Breakdown (Mastered vs Needs Practice)
-col_pass, col_fail = st.columns(2)
+with col2:
+    st.divider()
+    col_pass, col_fail = st.columns(2)
 
-with col_pass:
-    st.subheader("✅ Mastered Kanji")
-    passed_list = [d["kanji"] for d in evaluated_data if d["is_correct"]]
-    if passed_list:
-        st.write(" ".join([f"`{k}`" for k in passed_list]))
-    else:
-        st.info("None in this session.")
+    with col_pass:
+        st.subheader("✅ Mastered Kanji")
+        passed_list = [d["kanji"] for d in evaluated_data if d["is_correct"]]
+        if passed_list:
+            st.write(", ".join([f"{k}          " for k in passed_list]))
+        else:
+            st.info("None in this session.")
 
-with col_fail:
-    st.subheader("⚠️ Needs Practice")
-    failed_list = [d["kanji"] for d in evaluated_data if not d["is_correct"]]
-    if failed_list:
-        st.write(" ".join([f"`{k}`" for k in failed_list]))
-    else:
-        st.success("Great job! All Kanji were drawn correctly.")
+    with col_fail:
+        st.subheader("⚠️ Needs Practice")
+        failed_list = [d["kanji"] for d in evaluated_data if not d["is_correct"]]
+        if failed_list:
+            st.write(", ".join([f"{k}          " for k in failed_list]))
+        else:
+            st.success("Great job! All Kanji were drawn correctly.")
 
-st.divider()
+    st.divider()
 
-# 4. Detailed Breakdown Table
-st.subheader("Detailed Breakdown")
-df = pd.DataFrame(evaluated_data)
+# 4. Detailed Breakdown Table\
+with col2:
+    st.subheader("Detailed Breakdown")
+    df = pd.DataFrame(evaluated_data)
 
-# Format table for clean display
-df_display = df[
-    ["status", "kanji", "final_score", "dtw_score", "direction_score", "ssim_score", "cnn_similarity"]].copy()
-df_display.columns = ["Status", "Kanji", "Final Score (%)", "Stroke Order (DTW)", "Direction", "SSIM", "CNN Similarity"]
+    # Format table for clean display
+    df_display = df[
+        ["status", "kanji", "final_score", "total_stroke_score", "direction_score", "cnn_similarity"]].copy()
+    df_display.columns = ["Status", "Kanji", "Final Score (%)", "Total Stroke (%)", "Direction (%)", "CNN Similarity (%)"]
 
-# Format floats to 1 decimal place
-for col in df_display.columns[2:]:
-    df_display[col] = df_display[col].apply(lambda x: f"{x:.1f}%")
+    # Format floats to 1 decimal place
+    for col in df_display.columns[2:]:
+        df_display[col] = df_display[col].apply(lambda x: f"{x:.1f}%")
 
-st.dataframe(df_display, use_container_width=True)
+    st.dataframe(df_display, use_container_width=True)
 
-st.divider()
-nav_col1, nav_col2, nav_col3 = st.columns([1, 1, 1])
-with nav_col2:
-    if st.button("← Back to Menu", type="primary"):
-        st.session_state.kanji_index = 0
-        st.session_state.in_practice = False
-        _ = st.session_state.pop("sett_n_kanji", None)
-        _ = st.session_state.pop("sett_random_kanji", None)
-        _ = st.session_state.pop("sett_random_seed", None)
-        _ = st.session_state.pop("test_score", None)
-        st.switch_page("pagest/test_n5.py")
+    # st.divider()
+    st.container(height=50, border=False)
+    nav_col1, nav_col2, nav_col3 = st.columns([1, 1, 1])
+    with nav_col2:
+        if st.button("← Back to Menu", type="primary"):
+            _ = st.session_state.pop("kanji_index", None)
+            st.session_state.in_practice = False
+            _ = st.session_state.pop("sett_n_kanji", None)
+            _ = st.session_state.pop("sett_random_kanji", None)
+            _ = st.session_state.pop("sett_random_seed", None)
+            _ = st.session_state.pop("test_score", None)
+            back_to_page = st.query_params.get("page_source", "home.py")
+            st.switch_page(f"pages/{back_to_page}")
+
+
+# Credit Section
+get_credit_footer()
