@@ -8,6 +8,7 @@ import torch
 import torchvision.transforms as transforms
 from PIL import Image
 import matplotlib.pyplot as plt
+import streamlit as st
 
 def extract_kanjivg_strokes(svg_path, num_samples=30):
     """
@@ -186,6 +187,74 @@ def generate_stroke_order_image(svg_path, size=300, line_thickness=4):
 
     # Smooth upscale to final UI display size
     return cv2.resize(canvas_rgb, (size, size), interpolation=cv2.INTER_AREA)
+
+def render_animated_kanji(character, width=250, height=250):
+    """
+    Renders an animated Kanji character with a Replay button using HanziWriter CDN.
+    """
+    html_code = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+      <style>
+        body {{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0;
+          font-family: sans-serif;
+          background-color: transparent;
+        }}
+        #kanji-target {{
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          background-color: #ffffff;
+        }}
+        button {{
+          margin-top: 10px;
+          padding: 8px 16px;
+          border-radius: 6px;
+          border: 1px solid #0066cc;
+          background-color: orange;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }}
+        button:hover {{
+          background-color: #0052a3;
+        }}
+      </style>
+    </head>
+    <body>
+      <div id="kanji-target"></div>
+      <div class="button-group">
+          <button onclick="writer.pauseAnimation()">Pause</button>
+          <button onclick="writer.resumeAnimation()">Resume</button>
+      </div>
+      
+
+      <script>
+        var writer = HanziWriter.create('kanji-target', '{character}', {{
+          width: {width},
+          height: {height},
+          padding: 15,
+          strokeAnimationSpeed: 0.5,
+          delayBetweenStrokes: 200,
+          strokeColor: '#333333',
+          radicalColor: '#0066cc',
+          showOutline: true,
+          outlineColor: '#e0e0e0',
+          delayBetweenLoops: 3000
+        }});
+
+        // Auto-play on load
+        writer.loopCharacterAnimation();
+      </script>
+    </body>
+    </html>
+    """
+    st.iframe(html_code, height=height + 80)
 
 if __name__ == "__main__":
     # Replace with path to any KanjiVG SVG file you downloaded
