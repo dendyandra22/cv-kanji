@@ -99,7 +99,7 @@ def preprocess_canvas_image(rgba_array):
 
     # Morphological Dilation (Fattens strokes proportionally to max_dim to avoid fading stroke)
     # The bigger/zoomed-out the bounding box, the more we thicken the stroke before shrinking!
-    kernel_size = max(1, int(cropped.shape[0] / 80))
+    kernel_size = max(1, int(cropped.shape[0] / 40))
     kernel = np.ones((kernel_size, kernel_size), np.uint8)
     thickened = cv2.dilate(cropped, kernel, iterations=1)
 
@@ -160,96 +160,3 @@ def predict_kanji_cnn(pil_image, model, class_names):
 
     return predicted_char, confidence_score
 
-
-# import torch
-# import torch.nn as nn
-# import torch.nn.functional as F
-#
-#
-# class SiameseKanjiNet(nn.Module):
-#     def __init__(self):
-#         super(SiameseKanjiNet, self).__init__()
-#         # Shared CNN Feature Extractor
-#         self.encoder = nn.Sequential(
-#             nn.Conv2d(1, 32, kernel_size=3, padding=1),
-#             nn.BatchNorm2d(32),
-#             nn.ReLU(),
-#             nn.MaxPool2d(2, 2),  # 14x14
-#
-#             nn.Conv2d(32, 64, kernel_size=3, padding=1),
-#             nn.BatchNorm2d(64),
-#             nn.ReLU(),
-#             nn.MaxPool2d(2, 2),  # 7x7
-#
-#             nn.Flatten(),
-#             nn.Linear(64 * 7 * 7, 128)  # Output 128-dimensional embedding vector
-#         )
-#
-#     def forward_one(self, x):
-#         return self.encoder(x)
-#
-#     def forward(self, img1, img2):
-#         # Extract feature embeddings for both images
-#         emb1 = self.forward_one(img1)
-#         emb2 = self.forward_one(img2)
-#         return emb1, emb2
-#
-#
-# # Contrastive Loss function to train matching vs non-matching pairs
-# class ContrastiveLoss(nn.Module):
-#     def __init__(self, margin=1.0):
-#         super(ContrastiveLoss, self).__init__()
-#         self.margin = margin
-#
-#     def forward(self, emb1, emb2, label):
-#         # label: 0 for same Kanji, 1 for different Kanji
-#         euclidean_distance = F.pairwise_distance(emb1, emb2)
-#         loss_same = (1 - label) * torch.pow(euclidean_distance, 2)
-#         loss_different = label * torch.pow(torch.clamp(self.margin - euclidean_distance, min=0.0), 2)
-#         return torch.mean(loss_same + loss_different)
-#
-#
-# import random
-# from torch.utils.data import Dataset
-#
-#
-# class KanjiPairDataset(Dataset):
-#     def __init__(self, dataset_folder, transform=None):
-#         # Load images grouped by folder (e.g. U+4E00, U+4E8C)
-#         self.dataset = datasets.ImageFolder(root=dataset_folder)
-#         self.transform = transform
-#
-#         # Group indices by class label
-#         self.label_to_indices = {}
-#         for idx, (_, label) in enumerate(self.dataset.samples):
-#             if label not in self.label_to_indices:
-#                 self.label_to_indices[label] = []
-#             self.label_to_indices[label].append(idx)
-#
-#         self.labels = list(self.label_to_indices.keys())
-#
-#     def __getitem__(self, index):
-#         # Pick Image A
-#         img1, label1 = self.dataset[index]
-#
-#         # 50% chance to pair with same class, 50% chance with different class
-#         should_match = random.random() > 0.5
-#
-#         if should_match:
-#             idx2 = random.choice(self.label_to_indices[label1])
-#             target_label = 0.0  # Same
-#         else:
-#             label2 = random.choice([l for l in self.labels if l != label1])
-#             idx2 = random.choice(self.label_to_indices[label2])
-#             target_label = 1.0  # Different
-#
-#         img2, _ = self.dataset[idx2]
-#
-#         if self.transform:
-#             img1 = self.transform(img1)
-#             img2 = self.transform(img2)
-#
-#         return img1, img2, torch.tensor(target_label, dtype=torch.float32)
-#
-#     def __len__(self):
-#         return len(self.dataset)
