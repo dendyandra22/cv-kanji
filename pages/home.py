@@ -18,7 +18,7 @@ st.markdown(
 # st.divider()
 
 # Home Banner Image
-st.image("static/img/menu1.jpg", use_container_width=True)
+st.image("https://img.magnific.com/premium-vector/group-students-tracing-their-names-calligraphy-each-different-language-as-fun-way_216520-45350.jpg", use_container_width=True)
 st.divider()
 
 # Quick Overview Section
@@ -28,7 +28,7 @@ cols = st.columns([1,1])
 with cols[0].container(height=550, horizontal_alignment="center"):
     menu_card(
         label="📖 Step-by-Step Practice",
-        image="learn.jpg",
+        image="https://img.magnific.com/free-vector/hand-drawn-college-entrance-exam-illustration_52683-112611.jpg",
         content="Select your level (JLPT N5 to N1) and learn proper stroke order, balance, and proportions with guided drawing animation.",
         btn_text="Start Learning",
         page_ref="learning_page.py"
@@ -37,7 +37,7 @@ with cols[0].container(height=550, horizontal_alignment="center"):
 with cols[1].container(height=550, horizontal_alignment="center"):
     menu_card(
         label="🎯 Writing Evaluation",
-        image="exercise.jpg",
+        image="https://img.magnific.com/free-vector/hand-drawn-college-entrance-exam-illustration_52683-112608.jpg",
         content="Test your memory! Draw characters from memory and get instant AI feedback on your stroke accuracy and handwriting score.",
         btn_text="Start Exercise",
         page_ref="exercise_page.py"

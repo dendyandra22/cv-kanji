@@ -15,9 +15,9 @@ from module.cnn import preprocess_canvas_image
 from module.cnn_train import SiameseKanjiNet
 from module.utility import print_log
 from pages.cards import menu_card, lesson_card
-from pages.sidebar import get_sidebar, get_credit_footer
+from pages.sidebar import get_sidebar, get_credit_footer, get_kanji_level_card
 
-st.set_page_config(page_title="Exercise Kanji", page_icon="🔰", layout="centered")
+st.set_page_config(page_title="Exercise Kanji", page_icon="📋", layout="centered")
 
 # Main Function
 
@@ -40,9 +40,13 @@ get_sidebar()
 # Exercise Welcome Screen
 st.markdown(
     """
-    # 🔰 Kanji Exercise
+    # 📋 Kanji Exercise
     """
 )
+with st.container(horizontal_alignment="center"):
+    st.image(
+        "https://img.magnific.com/premium-vector/man-woman-sitting-stack-books-reading-intently-while-using-laptops-two-people-reading-books-using-laptops-simple-minimalist-flat-vector-illustration_538213-119036.jpg",
+        width=500)
 
 # How To Section
 st.subheader("💡 How It Works")
@@ -66,53 +70,7 @@ st.divider()
 
 # Kanji Level Section
 st.subheader("Select a Exercise Level")
-col1, col2 = st.columns(2)
-
-with col1.container(width=350, horizontal_alignment="center", border=True):
-    lesson_card(
-        label="JLPT N5",
-        image="kanji_card1.jpg",
-        content="Beginner level • Essential Basic Kanji",
-        expander_data=kanji_metadata,
-        btn_text="Start N5 Exercise",
-        page_ref="test_n5.py"
-    )
-
-with col2.container(width=350, horizontal_alignment="center", border=True):
-    lesson_card(
-        label="JLPT N4 (Coming Soon)",
-        image="kanji_card2.jpg",
-        content="Elementary level • Everyday Kanji",
-        btn_text="Start N4 Exercise",
-        page_ref=""
-    )
-
-with col1.container(width=350, horizontal_alignment="center", border=True):
-    lesson_card(
-        label="JLPT N3 (Coming Soon)",
-        image="card_no_img.jpg",
-        content="Intermediate level • Pre-advanced Kanji",
-        btn_text="Start N3 Exercise",
-        page_ref=""
-    )
-
-with col2.container(width=350, horizontal_alignment="center", border=True):
-    lesson_card(
-        label="JLPT N2 (Coming Soon)",
-        image="card_no_img.jpg",
-        content="Upper-Intermediate level • Business Kanji",
-        btn_text="Start N2 Exercise",
-        page_ref=""
-    )
-
-with col1.container(width=350, horizontal_alignment="center", border=True):
-    lesson_card(
-        label="JLPT N1 (Coming Soon)",
-        image="card_no_img.jpg",
-        content="Advanced level • Fluent & native-level Kanji",
-        btn_text="Start N1 Exercise",
-        page_ref=""
-    )
+get_kanji_level_card(kanji_metadata, practice_route=False)
 
 # Credit Section
 get_credit_footer()

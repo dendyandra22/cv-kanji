@@ -13,9 +13,9 @@ from module.svg import extract_kanjivg_strokes, svg_to_numpy, numpy_to_target_te
 from module.cnn import predict_kanji_cnn, KanjiCNN, predict_kanji_cnn2, preprocess_canvas_image
 from module.cnn_train import SiameseKanjiNet
 from module.utility import print_log
-from pages.sidebar import get_sidebar, get_credit_footer
+from pages.sidebar import get_sidebar, get_credit_footer, get_kanji_batch_n5
 
-st.set_page_config(page_title="Exercise Kanji N5", page_icon="💪")
+st.set_page_config(page_title="Exercise Kanji N5", page_icon="📋", layout="centered")
 
 # Main Function
 @st.cache_resource
@@ -74,55 +74,57 @@ if "in_practice" not in st.session_state:
 # VIEW 1: Welcome Screen
 if not st.session_state.in_practice:
 
-    st.title("💪 Exercise Kanji Level N5", text_alignment="center")
-    st.image("static/img/exercise.jpg", width=500, )
     st.markdown(
         """
-        In this test, your skill will be tested. Be careful!
-        
-        ### About Exercise
-        In this apps You will write kanji to fill the blank in the given sentence. Each batch by default is contain 15 sentence / question.
+        # 📋 Kanji Exercise: Level N5
+        """
+    )
+    st.markdown(
+        """
+        Ready to put your Kanji skills to the test? Write the missing Kanji to complete each sentence!
 
-        You can set exercise setting use setting option below.
-        
-        When ready click button below :)
+        ### 💡 Exercise Overview
+        * **Batch System:** By default, each test consists of **15 sentence-completion questions**.
+        * **Scoring Criteria:** Every written character is evaluated on **stroke order**, **stroke direction**, and **shape accuracy**.
+        * **Passing Grade:** Achieve an average score of **70 or above** to pass. Anything below 70 is marked as a fail.
+        * **Final Results:** A detailed performance summary will be displayed after you complete all questions in the set.
+
+        You can customize your test preferences in the settings section below. Whenever you're ready, hit start to begin!
         """
     )
     st.divider()
-    st.subheader("Kanji Batch Selection")
+    st.markdown(
+           """
+           ### 🎯 Select a Kanji Group
+           """
+    )
     idx_range = range(len(kanji_metadata))
     batch_size = 15
     idx_batch = {}
     for i, j in enumerate(range(0, len(idx_range), batch_size), start=1):
         batch_end = i * batch_size if i * batch_size <= len(idx_range) else len(idx_range)
-        if i == 1:
-            idx_batch[f"Kanji 1~{batch_end}"] = idx_range[j:j + batch_size]
-            continue
+        idx_batch[f"kanji {i}"] = idx_range[j:j + batch_size]
 
-        idx_batch[f"Kanji {(i-1)*(batch_size)+1}~{batch_end}"] = idx_range[j:j + batch_size]
+    batch_opt = get_kanji_batch_n5(kanji_metadata, idx_batch)
 
-    batch_opt = st.multiselect(
-        "Select Kanji Batch",
-        idx_batch,
-        default=[list(idx_batch.keys())[0]],
-    )
 
     st.divider()
-    st.subheader("Exercise Setting")
+    st.markdown(
+        """
+        ### ⚙️ Exercise Setting
+        """
+    )
     with st.container():
-        col1, col2, col3 = st.columns([1,1,1])
 
-        with col1:
-            sett_n_kanji = st.slider("Number of Kanji Appear", value=batch_size, max_value=len(batch_opt)*batch_size, min_value=1, step=1)
-            sett_question_eng = st.toggle("Show Hint in English", value=True)
-            # sett_random_kanji = st.toggle("Shuffle Kanji")
-            # timeout_opt = {"10s": 10, "15s": 15, "20s": 20,}
-            # sett_answer_timeout = st.pills("Time out",
-            #                                timeout_opt,
-            #                                selection_mode="single",
-            #                                default=["10s"]
-            #                                )
 
+
+        if batch_opt:
+            col1, col2, col3 = st.columns([1, 1, 1])
+            with col1:
+                sett_n_kanji = st.slider("Number of Kanji Appear", value=batch_size, max_value=len(batch_opt)*batch_size, min_value=1, step=1)
+                sett_question_eng = st.toggle("Show Hint in English", value=False)
+        else:
+            st.markdown("Please select Kanji group above at least 1")
 
 
 
@@ -141,17 +143,14 @@ if not st.session_state.in_practice:
 
 # VIEW 2: Exercise Screen
 else:
-    st.markdown(
-        """
-        # 🔰 Exercise Kanji Level N5
-        """
-    )
+
+    # Data initiation section
     selected_kanji_metadata = [kanji_metadata[i] for i in st.session_state.kanji_selected_idx]
 
     if "kanji_index" not in st.session_state:
         st.session_state.kanji_index = 0
 
-    # initiate current kanji
+    # Initiate current kanji data
     if st.session_state.sett_random_kanji:
         random.seed(st.session_state.sett_random_seed)
         random.shuffle(selected_kanji_metadata)
@@ -161,32 +160,50 @@ else:
     target_svg_path = f"data/kanjivg/{current_kanji['unicode'].replace('U+', '0')}.svg"
     ref_strokes = get_kanji_stroke(target_svg_path)
     target_img = generate_stroke_order_image(target_svg_path, size=350, line_thickness=3)
-    # practice_container =
-    with st.container():
-        st.subheader(f"✏️ Writting Exercise! ({st.session_state.kanji_index + 1}/{st.session_state.sett_n_kanji})")
 
-        kanji_in_question = current_kanji.get('kanji', '')
-        if st.session_state.sett_question_eng:
-            kanji_meaning = current_kanji.get('meaning', '')
-        else:
-            kanji_meaning = current_kanji.get('kunyomi', '')
-            kanji_meaning = current_kanji.get('onyomi', '') if kanji_meaning == '-' else kanji_meaning
-        print(kanji_in_question)
-        sent_question = current_kanji.get('sentence', '')
-        sent_question = sent_question.replace(kanji_in_question, f" [{kanji_meaning}] ")
+    # Question data section
+    kanji_in_question = current_kanji.get('kanji', '')
+    if st.session_state.sett_question_eng:
+        kanji_meaning = current_kanji.get('meaning', '')
+    else:
+        kanji_meaning = current_kanji.get('kunyomi', '')
+        kanji_meaning = current_kanji.get('onyomi', '') if kanji_meaning == '-' else kanji_meaning
+
+    sent_question = current_kanji.get('sentence', '')
+    sent_question = sent_question.replace(kanji_in_question, f" [{kanji_meaning}] ")
+
+
+    # Exercise layout control
+    with st.container():
         st.markdown(
-            f""" 
-            ### **Question:** 
-            ##### {sent_question} 
-            """
+            f"""
+            # 📋 Kanji Exercise: Level N5
+
+            <div style="font-size: 1.6rem; margin-bottom: 10px;">
+                ✏️ Question {st.session_state.kanji_index + 1} of {st.session_state.sett_n_kanji}
+            </div>
+            
+            <div style="
+                padding: 24px 8px;
+                font-size: 2rem;
+                font-weight: 500;
+                letter-spacing: 2px;
+            ">
+                {sent_question}
+            </div>
+            """,
+            text_alignment="center",
+            unsafe_allow_html=True,
         )
 
+    if "canvas_key" not in st.session_state:
+        st.session_state.canvas_key = 0
+    canvas_size = (300, 300)
 
-        if "canvas_key" not in st.session_state:
-            st.session_state.canvas_key = 0
+    with st.container(horizontal_alignment="center"):
+        # st.divider()
+        st.markdown("### Drawing Canvas", text_alignment="center",)
 
-        st.subheader("Drawing Canvas")
-        canvas_size = (300,300)
         canvas_result = st_canvas(
             fill_color="rgba(255, 165, 0, 0.3)",
             stroke_width=10,
@@ -214,102 +231,72 @@ else:
             st.image(debug_img, width=100, clamp=True)
 
 
-            # st.subheader("Evaluation Dashboard")
-            #
-            if canvas_result.json_data is not None and "objects" in canvas_result.json_data:
-                objects = canvas_result.json_data["objects"]
-                user_strokes_raw = []
+    # Evaluation calculation section
+    if canvas_result.json_data is not None and "objects" in canvas_result.json_data:
+        objects = canvas_result.json_data["objects"]
+        user_strokes_raw = []
 
-                # 1. Parse Trajectories (Support M, L, Q SVG commands)
-                for obj in objects:
-                    if obj["type"] == "Path":
-                        stroke_points = []
-                        for command in obj["path"]:
-                            cmd_type = command[0]
-                            if cmd_type in ["M", "L"]:
-                                stroke_points.append([command[1], command[2]])
-                            elif cmd_type == "Q":
-                                stroke_points.append([command[3], command[4]])
-                        if len(stroke_points) > 1:
-                            user_strokes_raw.append(np.array(stroke_points))
+        # 1. Parse Trajectories (Support M, L, Q SVG commands)
+        for obj in objects:
+            if obj["type"] == "Path":
+                stroke_points = []
+                for command in obj["path"]:
+                    cmd_type = command[0]
+                    if cmd_type in ["M", "L"]:
+                        stroke_points.append([command[1], command[2]])
+                    elif cmd_type == "Q":
+                        stroke_points.append([command[3], command[4]])
+                if len(stroke_points) > 1:
+                    user_strokes_raw.append(np.array(stroke_points))
 
-                if user_strokes_raw and ref_strokes:
-                    # --- Dynamic Processing (DTW & Direction) ---
-                    user_norm = normalize_character_bbox(user_strokes_raw)
-                    user_strokes = [resample_stroke_spatial(s, num_points=100) for s in user_norm]
-                    seq_results = evaluate_character_sequence(user_strokes, ref_strokes)
+        if user_strokes_raw and ref_strokes:
+            # --- Dynamic Processing (DTW & Direction) ---
+            user_norm = normalize_character_bbox(user_strokes_raw)
+            user_strokes = [resample_stroke_spatial(s, num_points=100) for s in user_norm]
+            seq_results = evaluate_character_sequence(user_strokes, ref_strokes)
 
-                    # dtw_score = seq_results["avg_shape_score"]
-                    total_stroke_score = seq_results["total_stroke_score"]
-                    direction_score = seq_results["avg_direction_score"]
+            # dtw_score = seq_results["avg_shape_score"]
+            total_stroke_score = seq_results["total_stroke_score"]
+            direction_score = seq_results["avg_direction_score"]
 
-                    # --- Static Processing (SSIM & CNN) ---
-                    canvas_img_rgba = canvas_result.image_data  # RGBA numpy array
+            # --- Static Processing (SSIM & CNN) ---
+            canvas_img_rgba = canvas_result.image_data  # RGBA numpy array
 
-                    # Compute SSIM score
-                    # ssim_score = evaluate_ssim(canvas_img_rgba, target_svg_path, canvas_size=canvas_size)
+            # Compute SSIM score
+            # ssim_score = evaluate_ssim(canvas_img_rgba, target_svg_path, canvas_size=canvas_size)
 
-                    # Compute CNN prediction confidence
-                    user_tensor = preprocess_canvas_image(canvas_img_rgba)
-                    np_img = svg_to_numpy(target_svg_path, thickness=3)
-                    target_tensor = numpy_to_target_tensor(np_img, "cpu")
-                    user_tensor = preprocess_canvas_image(canvas_result.image_data)
-                    cnn_similarity = calculate_similarity_score(cnn_model, user_tensor, target_tensor)
-                    # print("user_rgba_shape", canvas_img_rgba.shape, type(canvas_img_rgba))
-                    # print("user_tensor", user_tensor.shape, type(user_tensor))
-                    # print("svg_to_numpy", np_img.shape, type(np_img))
-                    # print("target_tensor", target_tensor.shape, type(target_tensor))
+            # Compute CNN prediction confidence
+            user_tensor = preprocess_canvas_image(canvas_img_rgba)
+            np_img = svg_to_numpy(target_svg_path, thickness=3)
+            target_tensor = numpy_to_target_tensor(np_img, "cpu")
+            user_tensor = preprocess_canvas_image(canvas_result.image_data)
+            cnn_similarity = calculate_similarity_score(cnn_model, user_tensor, target_tensor)
 
-                    # --- Final Weighted Score Calculation ---
-                    w1, w2, w3 = 0.05, 0.3, 0.65  # 0.0, 0.425, 0.425, 0.15
-                    final_score = round(
-                        (w1 * total_stroke_score) +
-                        (w2 * direction_score) +
-                        (w3 * cnn_similarity),
-                        2
-                    )
-
-
-
-                    # --- Render Main Final Score Banner ---
-                    # st.metric("Overall Score", f"{final_score} / 100")
-                    # st.progress(min(int(final_score), 100))
-                    #
-                    # st.divider()
-
-                    # --- 4-Component Score Breakdown Grid ---
-                    # st.write("### Metric Breakdown")
-                    # m1, m2, m3, m4 = st.columns(4)
-                    # st.metric("1. Stroke Order (DTW)", f"{dtw_score:.3f}%")
-                    # st.metric("2. Direction Score", f"{direction_score:.3f}%")
-                    # st.metric("3. SSIM Proportion", f"{ssim_score:.3f}%")
-                    # st.metric("4. CNN Similarity", f"{cnn_similarity:.3f}%")
-
-
-
-            #         # # --- Stroke-by-Stroke Details ---
-            #         # st.write("### Detailed Stroke Breakdown")
-            #         # for res in seq_results["stroke_breakdown"]:
-            #         #     idx = res["stroke_index"]
-            #         #     status = "✅ Correct" if res["direction_correct"] else "❌ Drawn Backwards"
-            #         #     with st.expander(f"Stroke {idx} Analysis"):
-            #         #         st.write(f"**Shape Similarity (DTW):** {res['shape_score']} / 100")
-            #         #         st.write(f"**Direction Status:** {status}")
-            #     else:
-            #         st.info("Draw on the canvas to compute the live score.")
+            # --- Final Weighted Score Calculation ---
+            w1, w2, w3 = 0.05, 0.3, 0.65  # 0.0, 0.425, 0.425, 0.15
+            final_score = round(
+                (w1 * total_stroke_score) +
+                (w2 * direction_score) +
+                (w3 * cnn_similarity),
+                2
+            )
 
     # st.divider()
-    st.container(height=50, border=False)
-    nav_col1, nav_col2, nav_col3 = st.columns([1, 2, 1])
 
+    st.container(height=24, border=False) # empty container as upper padding to canvas above
+
+    nav_col1, colA, nav_col2, colB, nav_col3 = st.columns([1, 0.3, 1, 0.3,  1])
+
+    # Column 1: Previous Button
     with nav_col1:
-        if st.button("← Previous", disabled=(st.session_state.kanji_index == 0)):
+        if st.button("← Previous", use_container_width=True, disabled=(st.session_state.kanji_index == 0)):
             st.session_state.kanji_index -= 1
             st.session_state.canvas_key += 1
+            st.session_state.test_score = st.session_state.test_score.pop()
             st.rerun()
 
     with nav_col2:
-        if st.button("End Exercise"):
+        if st.button("End Exercise", use_container_width=True):
             st.balloons()
             st.session_state.kanji_index = 0
             st.session_state.in_practice = False
@@ -322,7 +309,7 @@ else:
 
     with nav_col3:
         if st.session_state.kanji_index < st.session_state.sett_n_kanji - 1:
-            if st.button("Next Kanji →", type="primary"):
+            if st.button("Next Kanji →", type="primary", use_container_width=True, disabled=(canvas_result.image_data is None)):
                 st.session_state.kanji_index += 1
                 st.session_state.canvas_key += 1
                 st.session_state.test_score.append({"kanji":kanji_in_question,
@@ -332,7 +319,7 @@ else:
                                                     "cnn_similarity": cnn_similarity
                                                     })
                 print_log(f"len test score: {len(st.session_state.test_score)}")
-                print_log(st.session_state.test_score[-1])
+                # print_log(st.session_state.test_score[-1])
                 st.rerun()
         else:
             if st.button("Finish Exercise 🎉", type="primary"):
@@ -350,7 +337,7 @@ else:
                                                     "cnn_similarity": cnn_similarity
                                                     })
                 print_log(f"len test score: {len(st.session_state.test_score)}")
-                print_log(st.session_state.test_score[-1])
+                # print_log(st.session_state.test_score[-1])
                 st.switch_page("pages/score_page.py", query_params={"page_source": "test_n5.py"})
 
 # Credit Section

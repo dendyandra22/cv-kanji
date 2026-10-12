@@ -9,7 +9,8 @@ def menu_card(label, image, content, btn_text, page_ref):
         #### {label}
         """
     , text_alignment="center")
-    st.image(f"static/img/{image}")
+    # st.image(f"static/img/{image}")
+    st.image(image)
     st.markdown(content, text_alignment="center")
 
     if st.button(btn_text, type="primary"):
@@ -22,7 +23,8 @@ def lesson_card(label, image="", content="", expander_data=None, btn_text="", pa
         """
     , text_alignment="center")
     if image:
-        st.image(f"static/img/{image}", width=280)
+        # st.image(f"static/img/{image}", width=280)
+        st.image(image)
     if content:
         st.markdown(content, text_alignment="center")
 

@@ -3,7 +3,7 @@ import pandas as pd
 
 from pages.sidebar import get_sidebar, get_credit_footer
 
-st.set_page_config(page_title="Result", layout="wide")
+st.set_page_config(page_title="Result", layout="centered")
 
 # Sidebar Screen
 get_sidebar()
@@ -46,26 +46,6 @@ def get_final_grade(accuracy_pct):
         grade = "D"
         grade_color = "386641"
 
-    # st.markdown(
-    #     f"""
-    #         <div style="
-    #             border-radius: 10px;
-    #             padding: 0px;
-    #             text-align: center;
-    #         ">
-    #             <div style="font-size: 20px; color: #555555; font-weight: 500; margin-bottom: 2px;">
-    #                 Grade
-    #             </div>
-    #             <div style="margin: 0px 0;">
-    #                 <span style="color: #{grade_color}; font-size: 42px; font-weight: bold; font-family: monospace;">
-    #                     {grade}
-    #                 </span>
-    #             </div>
-    #         </div>
-    #         """,
-    #     unsafe_allow_html=True
-    # )
-
     return grade
 
 
@@ -105,52 +85,6 @@ with col2:
         m1.metric("Correct Kanji", f"{passed_count} / {total_kanji}")
         m2.metric("Accuracy Rate", f"{accuracy_pct:.1f}%")
         m3.metric("Grade", f"{grade}")
-    # with m1:
-    #     st.markdown(
-    #         f"""
-    #                 <div style="
-    #                     border-radius: 10px;
-    #                     padding: 0px;
-    #                     text-align: center;
-    #                 ">
-    #                     <div style="font-size: 20px; color: #555555; font-weight: 500; margin-bottom: 2px;">
-    #                         Correct Kanji
-    #                     </div>
-    #                     <div style="margin: 0px 0;">
-    #                         <span style= font-size: 42px; font-weight: bold; font-family: monospace;">
-    #                             {passed_count}/{total_kanji}
-    #                         </span>
-    #                     </div>
-    #                 </div>
-    #                 """,
-    #         unsafe_allow_html=True
-    #     )
-    #
-    # with m2:
-    #     st.markdown(
-    #         f"""
-    #                         <div style="
-    #                             border-radius: 10px;
-    #                             padding: 0px;
-    #                             text-align: center;
-    #                         ">
-    #                             <div style="font-size: 20px; color: #555555; font-weight: 500; margin-bottom: 2px;">
-    #                                 Accuracy Rate
-    #                             </div>
-    #                             <div style="margin: 0px 0;">
-    #                                 <span style= font-size: 42px; font-weight: bold; font-family: monospace;">
-    #                                     {accuracy_pct:.1f}%
-    #                                 </span>
-    #                             </div>
-    #                         </div>
-    #                         """,
-    #         unsafe_allow_html=True
-    #     )
-    #
-    # with m3:
-    #     get_final_grade(accuracy_pct)
-
-
 
 # 3. Categorized Breakdown (Mastered vs Needs Practice)
 with col2:
@@ -161,7 +95,19 @@ with col2:
         st.subheader("✅ Mastered Kanji")
         passed_list = [d["kanji"] for d in evaluated_data if d["is_correct"]]
         if passed_list:
-            st.write(", ".join([f"{k}          " for k in passed_list]))
+            tmp = ", ".join([k for k in passed_list])
+            st.markdown(
+                f"""
+                             <div style="
+                            font-size: 1.2rem;
+                            font-weight: 500;
+                            letter-spacing: 2px;
+                        ">
+                            {tmp}
+                        </div>
+                            """,
+                unsafe_allow_html=True,
+            )
         else:
             st.info("None in this session.")
 
@@ -169,7 +115,19 @@ with col2:
         st.subheader("⚠️ Needs Practice")
         failed_list = [d["kanji"] for d in evaluated_data if not d["is_correct"]]
         if failed_list:
-            st.write(", ".join([f"{k}          " for k in failed_list]))
+            tmp = ", ".join([k for k in failed_list])
+            st.markdown(
+                f"""
+                 <div style="
+                font-size: 1.2rem;
+                font-weight: 500;
+                letter-spacing: 2px;
+            ">
+                {tmp}
+            </div>
+                """,
+                unsafe_allow_html=True,
+            )
         else:
             st.success("Great job! All Kanji were drawn correctly.")
 
@@ -192,10 +150,10 @@ with col2:
     st.dataframe(df_display, use_container_width=True)
 
     # st.divider()
-    st.container(height=50, border=False)
+    st.container(height=24, border=False)
     nav_col1, nav_col2, nav_col3 = st.columns([1, 1, 1])
     with nav_col2:
-        if st.button("← Back to Menu", type="primary"):
+        if st.button("← Back to Menu", type="primary", use_container_width=True):
             _ = st.session_state.pop("kanji_index", None)
             st.session_state.in_practice = False
             _ = st.session_state.pop("sett_n_kanji", None)
