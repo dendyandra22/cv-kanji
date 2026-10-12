@@ -4,3 +4,8 @@ fastdtw
 scipy
 streamlit
 streamlit-drawable-canvas
+opencv-python
+scikit-image
+torch
+torchvision
+svgpathtools
