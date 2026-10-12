@@ -2,622 +2,825 @@
   {
     "kanji": "一",
     "unicode": "U+4E00",
-    "kunyomi": "ひと",
+    "kunyomi": "ひと / ひとつ",
     "onyomi": "いち",
+    "meaning": "One",
     "sentence": "これを一つください"
-  },
-  {
-    "kanji": "二",
-    "unicode": "U+4E8C",
-    "kunyomi": "ふたつ",
-    "onyomi": "に",
-    "sentence": "ねこが二ついます"
-  },
-  {
-    "kanji": "三",
-    "unicode": "U+4E09",
-    "kunyomi": "mi",
-    "onyomi": "san",
-    "sentence": "ペンが三つあります"
-  },
-  {
-    "kanji": "四",
-    "unicode": "U+56DB",
-    "kunyomi": "yon",
-    "onyomi": "shi"
-  },
-  {
-    "kanji": "五",
-    "unicode": "U+4E94",
-    "kunyomi": "itsu",
-    "onyomi": "go"
-  },
-  {
-    "kanji": "六",
-    "unicode": "U+516D",
-    "kunyomi": "mu",
-    "onyomi": "roku"
   },
   {
     "kanji": "七",
     "unicode": "U+4E03",
-    "kunyomi": "nana",
-    "onyomi": "shichi"
-  },
-  {
-    "kanji": "八",
-    "unicode": "U+516B",
-    "kunyomi": "ya",
-    "onyomi": "hachi"
-  },
-  {
-    "kanji": "九",
-    "unicode": "U+4E5D",
-    "kunyomi": "kokono",
-    "onyomi": "kyuu"
-  },
-  {
-    "kanji": "十",
-    "unicode": "U+5341",
-    "kunyomi": "too",
-    "onyomi": "juu"
-  },
-  {
-    "kanji": "百",
-    "unicode": "U+767E",
-    "kunyomi": "momo",
-    "onyomi": "hyaku"
-  },
-  {
-    "kanji": "千",
-    "unicode": "U+5343",
-    "kunyomi": "chi",
-    "onyomi": "sen"
+    "kunyomi": "なな / ななつ",
+    "onyomi": "しち",
+    "meaning": "Seven",
+    "sentence": "七時半に学校へ行きます"
   },
   {
     "kanji": "万",
     "unicode": "U+4E07",
-    "kunyomi": "yorozu",
-    "onyomi": "man"
+    "kunyomi": "-",
+    "onyomi": "まん",
+    "meaning": "Ten thousand",
+    "sentence": "一万円札を払いました"
   },
   {
-    "kanji": "円",
-    "unicode": "U+5186",
-    "kunyomi": "maru",
-    "onyomi": "en"
-  },
-  {
-    "kanji": "口",
-    "unicode": "U+53E3",
-    "kunyomi": "kuchi",
-    "onyomi": "kou"
-  },
-  {
-    "kanji": "日",
-    "unicode": "U+65E5",
-    "kunyomi": "hi",
-    "onyomi": "nichi"
-  },
-  {
-    "kanji": "月",
-    "unicode": "U+6708",
-    "kunyomi": "tsuki",
-    "onyomi": "getsu"
-  },
-  {
-    "kanji": "火",
-    "unicode": "U+706B",
-    "kunyomi": "hi",
-    "onyomi": "ka"
-  },
-  {
-    "kanji": "水",
-    "unicode": "U+6C34",
-    "kunyomi": "mizu",
-    "onyomi": "sui"
-  },
-  {
-    "kanji": "木",
-    "unicode": "U+6728",
-    "kunyomi": "ki",
-    "onyomi": "moku"
-  },
-  {
-    "kanji": "金",
-    "unicode": "U+91D1",
-    "kunyomi": "kane",
-    "onyomi": "kin"
-  },
-  {
-    "kanji": "土",
-    "unicode": "U+571F",
-    "kunyomi": "tsuchi",
-    "onyomi": "to"
-  },
-  {
-    "kanji": "曜",
-    "unicode": "U+6DCB",
-    "kunyomi": "hikari",
-    "onyomi": "you"
-  },
-  {
-    "kanji": "年",
-    "unicode": "U+5E74",
-    "kunyomi": "toshi",
-    "onyomi": "nen"
-  },
-  {
-    "kanji": "時",
-    "unicode": "U+6642",
-    "kunyomi": "toki",
-    "onyomi": "ji"
-  },
-  {
-    "kanji": "分",
-    "unicode": "U+5206",
-    "kunyomi": "waka",
-    "onyomi": "fun"
-  },
-  {
-    "kanji": "半",
-    "unicode": "U+534A",
-    "kunyomi": "naka",
-    "onyomi": "han"
-  },
-  {
-    "kanji": "本",
-    "unicode": "U+672C",
-    "kunyomi": "moto",
-    "onyomi": "hon"
-  },
-  {
-    "kanji": "人",
-    "unicode": "U+4EBA",
-    "kunyomi": "hito",
-    "onyomi": "jin"
-  },
-  {
-    "kanji": "子",
-    "unicode": "U+5B50",
-    "kunyomi": "ko",
-    "onyomi": "shi"
-  },
-  {
-    "kanji": "女",
-    "unicode": "U+5973",
-    "kunyomi": "onna",
-    "onyomi": "jo"
-  },
-  {
-    "kanji": "男",
-    "unicode": "U+7537",
-    "kunyomi": "otoko",
-    "onyomi": "dan"
-  },
-  {
-    "kanji": "目",
-    "unicode": "U+76EE",
-    "kunyomi": "me",
-    "onyomi": "moku"
-  },
-  {
-    "kanji": "耳",
-    "unicode": "U+8033",
-    "kunyomi": "mimi",
-    "onyomi": "ji"
-  },
-  {
-    "kanji": "手",
-    "unicode": "U+624B",
-    "kunyomi": "te",
-    "onyomi": "shu"
-  },
-  {
-    "kanji": "足",
-    "unicode": "U+8DB3",
-    "kunyomi": "ashi",
-    "onyomi": "soku"
-  },
-  {
-    "kanji": "力",
-    "unicode": "U+529B",
-    "kunyomi": "chikara",
-    "onyomi": "ryoku"
-  },
-  {
-    "kanji": "父",
-    "unicode": "U+7236",
-    "kunyomi": "chichi",
-    "onyomi": "fu"
-  },
-  {
-    "kanji": "母",
-    "unicode": "U+6BCD",
-    "kunyomi": "haha",
-    "onyomi": "bo"
-  },
-  {
-    "kanji": "先",
-    "unicode": "U+5148",
-    "kunyomi": "saki",
-    "onyomi": "sen"
-  },
-  {
-    "kanji": "生",
-    "unicode": "U+751F",
-    "kunyomi": "iki",
-    "onyomi": "sei"
-  },
-  {
-    "kanji": "学",
-    "unicode": "U+5B66",
-    "kunyomi": "mana",
-    "onyomi": "gaku"
-  },
-  {
-    "kanji": "校",
-    "unicode": "U+6821",
-    "kunyomi": "kase",
-    "onyomi": "kou"
-  },
-  {
-    "kanji": "友",
-    "unicode": "U+53CB",
-    "kunyomi": "tomo",
-    "onyomi": "yuu"
-  },
-  {
-    "kanji": "車",
-    "unicode": "U+8ECA",
-    "kunyomi": "kuruma",
-    "onyomi": "sha"
-  },
-  {
-    "kanji": "山",
-    "unicode": "U+5C71",
-    "kunyomi": "yama",
-    "onyomi": "san"
-  },
-  {
-    "kanji": "川",
-    "unicode": "U+5DDD",
-    "kunyomi": "kawa",
-    "onyomi": "sen"
-  },
-  {
-    "kanji": "田",
-    "unicode": "U+7530",
-    "kunyomi": "ta",
-    "onyomi": "den"
-  },
-  {
-    "kanji": "雨",
-    "unicode": "U+96E8",
-    "kunyomi": "ame",
-    "onyomi": "u"
-  },
-  {
-    "kanji": "天",
-    "unicode": "U+5929",
-    "kunyomi": "ama",
-    "onyomi": "ten"
-  },
-  {
-    "kanji": "気",
-    "unicode": "U+6C17",
-    "kunyomi": "iki",
-    "onyomi": "ki"
-  },
-  {
-    "kanji": "花",
-    "unicode": "U+82B1",
-    "kunyomi": "hana",
-    "onyomi": "ka"
-  },
-  {
-    "kanji": "国",
-    "unicode": "U+56FD",
-    "kunyomi": "kuni",
-    "onyomi": "koku"
-  },
-  {
-    "kanji": "会",
-    "unicode": "U+4F1A",
-    "kunyomi": "a",
-    "onyomi": "kai"
-  },
-  {
-    "kanji": "社",
-    "unicode": "U+793E",
-    "kunyomi": "yashiro",
-    "onyomi": "sha"
-  },
-  {
-    "kanji": "店",
-    "unicode": "U+5E97",
-    "kunyomi": "mise",
-    "onyomi": "ten"
-  },
-  {
-    "kanji": "駅",
-    "unicode": "U+99C5",
-    "kunyomi": "ekiba",
-    "onyomi": "eki"
+    "kanji": "三",
+    "unicode": "U+4E09",
+    "kunyomi": "み / みつ / みっつ",
+    "onyomi": "さん",
+    "meaning": "Three",
+    "sentence": "ペンが三つあります"
   },
   {
     "kanji": "上",
     "unicode": "U+4E0A",
-    "kunyomi": "ue",
-    "onyomi": "jou"
+    "kunyomi": "うえ / あがる / あげる",
+    "onyomi": "じょう",
+    "meaning": "Up / Above",
+    "sentence": "机の上に本があります"
   },
   {
     "kanji": "下",
     "unicode": "U+4E0B",
-    "kunyomi": "shita",
-    "onyomi": "ka"
+    "kunyomi": "した / さがる / さげる",
+    "onyomi": "か / げ",
+    "meaning": "Down / Below",
+    "sentence": "椅子の下に猫がいます"
   },
   {
     "kanji": "中",
     "unicode": "U+4E2D",
-    "kunyomi": "naka",
-    "onyomi": "chuu"
+    "kunyomi": "なか",
+    "onyomi": "ちゅう",
+    "meaning": "Inside / Middle",
+    "sentence": "箱の中に何がありますか"
   },
   {
-    "kanji": "外",
-    "unicode": "U+5916",
-    "kunyomi": "soto",
-    "onyomi": "gai"
+    "kanji": "九",
+    "unicode": "U+4E5D",
+    "kunyomi": "ここの / ここのつ",
+    "onyomi": "きゅう / く",
+    "meaning": "Nine",
+    "sentence": "九時に寝ます"
   },
   {
-    "kanji": "前",
-    "unicode": "U+540D",
-    "kunyomi": "mae",
-    "onyomi": "zen"
+    "kanji": "二",
+    "unicode": "U+4E8C",
+    "kunyomi": "ふた / ふたつ",
+    "onyomi": "に",
+    "meaning": "Two",
+    "sentence": "妹は二人います"
   },
   {
-    "kanji": "後",
-    "unicode": "U+5F8C",
-    "kunyomi": "ushiro",
-    "onyomi": "go"
+    "kanji": "五",
+    "unicode": "U+4E94",
+    "kunyomi": "いつ / いつつ",
+    "onyomi": "ご",
+    "meaning": "Five",
+    "sentence": "五月は天気がいいです"
   },
   {
-    "kanji": "右",
-    "unicode": "U+3001",
-    "kunyomi": "migi",
-    "onyomi": "u"
-  },
-  {
-    "kanji": "左",
-    "unicode": "U+5DE6",
-    "kunyomi": "hidari",
-    "onyomi": "sa"
-  },
-  {
-    "kanji": "大",
-    "unicode": "U+5927",
-    "kunyomi": "oo",
-    "onyomi": "dai"
-  },
-  {
-    "kanji": "小",
-    "unicode": "U+5C0F",
-    "kunyomi": "chii",
-    "onyomi": "shou"
-  },
-  {
-    "kanji": "長",
-    "unicode": "U+9577",
-    "kunyomi": "naga",
-    "onyomi": "chou"
-  },
-  {
-    "kanji": "高",
-    "unicode": "U+9AD8",
-    "kunyomi": "taka",
-    "onyomi": "kou"
-  },
-  {
-    "kanji": "安",
-    "unicode": "U+5AE9",
-    "kunyomi": "yasu",
-    "onyomi": "an"
-  },
-  {
-    "kanji": "新",
-    "unicode": "U+65B0",
-    "kunyomi": "atara",
-    "onyomi": "shin"
-  },
-  {
-    "kanji": "古",
-    "unicode": "U+53E4",
-    "kunyomi": "furu",
-    "onyomi": "ko"
-  },
-  {
-    "kanji": "多",
-    "unicode": "U+591A",
-    "kunyomi": "oo",
-    "onyomi": "ta"
-  },
-  {
-    "kanji": "少",
-    "unicode": "U+5C11",
-    "kunyomi": "suko",
-    "onyomi": "shou"
-  },
-  {
-    "kanji": "行",
-    "unicode": "U+884C",
-    "kunyomi": "i",
-    "onyomi": "kou"
-  },
-  {
-    "kanji": "来",
-    "unicode": "U+6765",
-    "kunyomi": "ku",
-    "onyomi": "rai"
-  },
-  {
-    "kanji": "食",
-    "unicode": "U+98DF",
-    "kunyomi": "ta",
-    "onyomi": "shoku"
-  },
-  {
-    "kanji": "飲",
-    "unicode": "U+98F2",
-    "kunyomi": "no",
-    "onyomi": "in"
-  },
-  {
-    "kanji": "見",
-    "unicode": "U+898B",
-    "kunyomi": "mi",
-    "onyomi": "ken"
-  },
-  {
-    "kanji": "聞",
-    "unicode": "U+805E",
-    "kunyomi": "ki",
-    "onyomi": "bun"
-  },
-  {
-    "kanji": "読",
-    "unicode": "U+8AAD",
-    "kunyomi": "yo",
-    "onyomi": "doku"
-  },
-  {
-    "kanji": "書",
-    "unicode": "U+66F8",
-    "kunyomi": "ka",
-    "onyomi": "sho"
-  },
-  {
-    "kanji": "話",
-    "unicode": "U+8A71",
-    "kunyomi": "hana",
-    "onyomi": "wa"
-  },
-  {
-    "kanji": "買",
-    "unicode": "U+8CB7",
-    "kunyomi": "ka",
-    "onyomi": "bai"
-  },
-  {
-    "kanji": "立",
-    "unicode": "U+7ACB",
-    "kunyomi": "ta",
-    "onyomi": "ritsu"
-  },
-  {
-    "kanji": "休",
-    "unicode": "U+4F11",
-    "kunyomi": "yasu",
-    "onyomi": "kyuu"
-  },
-  {
-    "kanji": "出",
-    "unicode": "U+5FA1",
-    "kunyomi": "de",
-    "onyomi": "shutsu"
-  },
-  {
-    "kanji": "入",
-    "unicode": "U+5165",
-    "kunyomi": "hai",
-    "onyomi": "nyuu"
-  },
-  {
-    "kanji": "名",
-    "unicode": "U+540D",
-    "kunyomi": "na",
-    "onyomi": "mei"
-  },
-  {
-    "kanji": "白",
-    "unicode": "U+767D",
-    "kunyomi": "shiro",
-    "onyomi": "haku"
-  },
-  {
-    "kanji": "赤",
-    "unicode": "U+8D64",
-    "kunyomi": "aka",
-    "onyomi": "seki"
-  },
-  {
-    "kanji": "青",
-    "unicode": "U+9752",
-    "kunyomi": "ao",
-    "onyomi": "sei"
-  },
-  {
-    "kanji": "黒",
-    "unicode": "U+9ED2",
-    "kunyomi": "kuro",
-    "onyomi": "koku"
-  },
-  {
-    "kanji": "間",
-    "unicode": "U+9593",
-    "kunyomi": "aida",
-    "onyomi": "kan"
+    "kanji": "人",
+    "unicode": "U+4EBA",
+    "kunyomi": "ひと",
+    "onyomi": "じん / にん",
+    "meaning": "Person",
+    "sentence": "あの人は誰ですか"
   },
   {
     "kanji": "今",
     "unicode": "U+4ECA",
-    "kunyomi": "ima",
-    "onyomi": "kon"
+    "kunyomi": "いま",
+    "onyomi": "こん",
+    "meaning": "Now",
+    "sentence": "今何時ですか"
   },
   {
-    "kanji": "北",
-    "unicode": "U+5317",
-    "kunyomi": "kita",
-    "onyomi": "hoku"
+    "kanji": "休",
+    "unicode": "U+4F11",
+    "kunyomi": "やすむ / やすみ",
+    "onyomi": "きゅう",
+    "meaning": "Rest / Vacation",
+    "sentence": "今日はちょっと休みたいです"
   },
   {
-    "kanji": "南",
-    "unicode": "U+5357",
-    "kunyomi": "minami",
-    "onyomi": "nan"
-  },
-  {
-    "kanji": "東",
-    "unicode": "U+6771",
-    "kunyomi": "higashi",
-    "onyomi": "tou"
-  },
-  {
-    "kanji": "西",
-    "unicode": "U+897F",
-    "kunyomi": "nishi",
-    "onyomi": "sei"
-  },
-  {
-    "kanji": "毎",
-    "unicode": "U+621E",
-    "kunyomi": "goto",
-    "onyomi": "mai"
+    "kanji": "会",
+    "unicode": "U+4F1A",
+    "kunyomi": "あう",
+    "onyomi": "かい",
+    "meaning": "Meet / Meeting",
+    "sentence": "明日友達に会います"
   },
   {
     "kanji": "何",
     "unicode": "U+4F55",
-    "kunyomi": "nani",
-    "onyomi": "ka"
+    "kunyomi": "なに / なん",
+    "onyomi": "か",
+    "meaning": "What",
+    "sentence": "これは何ですか"
   },
   {
-    "kanji": "電",
-    "unicode": "U+96FB",
-    "kunyomi": "inazuma",
-    "onyomi": "den"
+    "kanji": "先",
+    "unicode": "U+5148",
+    "kunyomi": "さき",
+    "onyomi": "せん",
+    "meaning": "Previous / Ahead",
+    "sentence": "先生、質問があります"
+  },
+  {
+    "kanji": "入",
+    "unicode": "U+5165",
+    "kunyomi": "はいる / いれる",
+    "onyomi": "にゅう",
+    "meaning": "Enter / Put in",
+    "sentence": "部屋に入ってください"
+  },
+  {
+    "kanji": "八",
+    "unicode": "U+516B",
+    "kunyomi": "や / やつ / やっつ",
+    "onyomi": "はち",
+    "meaning": "Eight",
+    "sentence": "りんごを八つ買いました"
+  },
+  {
+    "kanji": "六",
+    "unicode": "U+516D",
+    "kunyomi": "む / むつ / むっつ / むい",
+    "onyomi": "ろく",
+    "meaning": "Six",
+    "sentence": "六時に起きます"
+  },
+  {
+    "kanji": "円",
+    "unicode": "U+5186",
+    "kunyomi": "まるい",
+    "onyomi": "えん",
+    "meaning": "Yen / Circle",
+    "sentence": "これは五百円です"
+  },
+  {
+    "kanji": "出",
+    "unicode": "U+51FA",
+    "kunyomi": "でる / だす",
+    "onyomi": "しゅつ",
+    "meaning": "Exit / Go out",
+    "sentence": "七時に家を出ます"
+  },
+  {
+    "kanji": "分",
+    "unicode": "U+5206",
+    "kunyomi": "わかる / わける",
+    "onyomi": "ぶん / ふん",
+    "meaning": "Minute / Part / Understand",
+    "sentence": "駅まで十分かかります"
+  },
+  {
+    "kanji": "前",
+    "unicode": "U+524D",
+    "kunyomi": "まえ",
+    "onyomi": "ぜん",
+    "meaning": "Before / Front",
+    "sentence": "学校の前で待っています"
+  },
+  {
+    "kanji": "北",
+    "unicode": "U+5317",
+    "kunyomi": "きた",
+    "onyomi": "ほく",
+    "meaning": "North",
+    "sentence": "北風が吹いています"
+  },
+  {
+    "kanji": "十",
+    "unicode": "U+5341",
+    "kunyomi": "とお / とおか",
+    "onyomi": "じゅう",
+    "meaning": "Ten",
+    "sentence": "十円玉を持っています"
+  },
+  {
+    "kanji": "千",
+    "unicode": "U+5343",
+    "kunyomi": "ち",
+    "onyomi": "せん",
+    "meaning": "Thousand",
+    "sentence": "この本は千円です"
+  },
+  {
+    "kanji": "午",
+    "unicode": "U+5348",
+    "kunyomi": "-",
+    "onyomi": "ご",
+    "meaning": "Noon",
+    "sentence": "午後三時に会いましょう"
+  },
+  {
+    "kanji": "半",
+    "unicode": "U+534A",
+    "kunyomi": "なかば",
+    "onyomi": "はん",
+    "meaning": "Half",
+    "sentence": "七時半に起きます"
+  },
+  {
+    "kanji": "南",
+    "unicode": "U+5357",
+    "kunyomi": "みなみ",
+    "onyomi": "なん",
+    "meaning": "South",
+    "sentence": "南の国へ旅行したいです"
+  },
+  {
+    "kanji": "友",
+    "unicode": "U+53CB",
+    "kunyomi": "とも",
+    "onyomi": "ゆう",
+    "meaning": "Friend",
+    "sentence": "友達と公園に行きます"
+  },
+  {
+    "kanji": "口",
+    "unicode": "U+53E3",
+    "kunyomi": "くち",
+    "onyomi": "こう",
+    "meaning": "Mouth",
+    "sentence": "口を大きく開けてください"
+  },
+  {
+    "kanji": "古",
+    "unicode": "U+53E4",
+    "kunyomi": "ふるい",
+    "onyomi": "こ",
+    "meaning": "Old",
+    "sentence": "これは古い本です"
+  },
+  {
+    "kanji": "右",
+    "unicode": "U+53F3",
+    "kunyomi": "みぎ",
+    "onyomi": "う",
+    "meaning": "Right",
+    "sentence": "右に曲がってください"
+  },
+  {
+    "kanji": "名",
+    "unicode": "U+540D",
+    "kunyomi": "な",
+    "onyomi": "めい / みょう",
+    "meaning": "Name / Famous",
+    "sentence": "お名前は何ですか"
+  },
+  {
+    "kanji": "四",
+    "unicode": "U+56DB",
+    "kunyomi": "よん / よ / よっつ",
+    "onyomi": "し",
+    "meaning": "Four",
+    "sentence": "みかんが四つあります"
+  },
+  {
+    "kanji": "国",
+    "unicode": "U+56FD",
+    "kunyomi": "くに",
+    "onyomi": "こく",
+    "meaning": "Country",
+    "sentence": "日本はどんな国ですか"
+  },
+  {
+    "kanji": "土",
+    "unicode": "U+571F",
+    "kunyomi": "つち",
+    "onyomi": "ど / と",
+    "meaning": "Soil / Earth",
+    "sentence": "土曜日に休みます"
+  },
+  {
+    "kanji": "外",
+    "unicode": "U+5916",
+    "kunyomi": "そと / ほか",
+    "onyomi": "がい / げ",
+    "meaning": "Outside",
+    "sentence": "外は寒いです"
+  },
+  {
+    "kanji": "多",
+    "unicode": "U+591A",
+    "kunyomi": "おおい",
+    "onyomi": "た",
+    "meaning": "Many / Much",
+    "sentence": "今日は人が多いです"
+  },
+  {
+    "kanji": "大",
+    "unicode": "U+5927",
+    "kunyomi": "おおきい",
+    "onyomi": "だい / たい",
+    "meaning": "Big",
+    "sentence": "大学で勉強しています"
+  },
+  {
+    "kanji": "天",
+    "unicode": "U+5929",
+    "kunyomi": "あめ / あま",
+    "onyomi": "てん",
+    "meaning": "Heaven / Sky",
+    "sentence": "今日の天気は晴れです"
+  },
+  {
+    "kanji": "女",
+    "unicode": "U+5973",
+    "kunyomi": "おんな",
+    "onyomi": "じょ",
+    "meaning": "Woman",
+    "sentence": "女の子が泣いています"
+  },
+  {
+    "kanji": "子",
+    "unicode": "U+5B50",
+    "kunyomi": "こ",
+    "onyomi": "し",
+    "meaning": "Child",
+    "sentence": "子供たちが遊んでいます"
+  },
+  {
+    "kanji": "学",
+    "unicode": "U+5B66",
+    "kunyomi": "まなぶ",
+    "onyomi": "がく",
+    "meaning": "Study / Learn",
+    "sentence": "日本語を学んでいます"
+  },
+  {
+    "kanji": "安",
+    "unicode": "U+5B89",
+    "kunyomi": "やすい",
+    "onyomi": "あん",
+    "meaning": "Cheap / Safe / Peaceful",
+    "sentence": "この店は食べ物が安いです"
+  },
+  {
+    "kanji": "小",
+    "unicode": "U+5C0F",
+    "kunyomi": "ちいさい / こ",
+    "onyomi": "しょう",
+    "meaning": "Small",
+    "sentence": "小さな犬が好きです"
+  },
+  {
+    "kanji": "少",
+    "unicode": "U+5C11",
+    "kunyomi": "すくない / すこし",
+    "onyomi": "しょう",
+    "meaning": "Few / Little",
+    "sentence": "お金が少しあります"
+  },
+  {
+    "kanji": "山",
+    "unicode": "U+5C71",
+    "kunyomi": "やま",
+    "onyomi": "さん",
+    "meaning": "Mountain",
+    "sentence": "富士山は高いです"
+  },
+  {
+    "kanji": "川",
+    "unicode": "U+5DDD",
+    "kunyomi": "かわ",
+    "onyomi": "せん",
+    "meaning": "River",
+    "sentence": "川で魚を捕まえました"
+  },
+  {
+    "kanji": "左",
+    "unicode": "U+5DE6",
+    "kunyomi": "ひだり",
+    "onyomi": "さ",
+    "meaning": "Left",
+    "sentence": "左に曲がってください"
+  },
+  {
+    "kanji": "年",
+    "unicode": "U+5E74",
+    "kunyomi": "とし",
+    "onyomi": "ねん",
+    "meaning": "Year",
+    "sentence": "今年二十歳になります"
+  },
+  {
+    "kanji": "店",
+    "unicode": "U+5E97",
+    "kunyomi": "みせ",
+    "onyomi": "てん",
+    "meaning": "Shop / Store",
+    "sentence": "この店で昼ご飯を食べます"
+  },
+  {
+    "kanji": "後",
+    "unicode": "U+5F8C",
+    "kunyomi": "あと / うしろ",
+    "onyomi": "ご / こう",
+    "meaning": "After / Behind",
+    "sentence": "授業の後で帰ります"
+  },
+  {
+    "kanji": "手",
+    "unicode": "U+624B",
+    "kunyomi": "て",
+    "onyomi": "しゅ",
+    "meaning": "Hand",
+    "sentence": "ご飯の前に手を洗います"
+  },
+  {
+    "kanji": "新",
+    "unicode": "U+65B0",
+    "kunyomi": "あたらしい",
+    "onyomi": "しん",
+    "meaning": "New",
+    "sentence": "新しい服を買いました"
+  },
+  {
+    "kanji": "日",
+    "unicode": "U+65E5",
+    "kunyomi": "ひ / か",
+    "onyomi": "にち / じつ",
+    "meaning": "Day / Sun",
+    "sentence": "日曜日に行きましょう"
+  },
+  {
+    "kanji": "時",
+    "unicode": "U+6642",
+    "kunyomi": "とき",
+    "onyomi": "じ",
+    "meaning": "Time / Hour",
+    "sentence": "今何時ですか"
+  },
+  {
+    "kanji": "書",
+    "unicode": "U+66F8",
+    "kunyomi": "かく",
+    "onyomi": "しょ",
+    "meaning": "Write",
+    "sentence": "ここに名前を書いてください"
+  },
+  {
+    "kanji": "月",
+    "unicode": "U+6708",
+    "kunyomi": "つき",
+    "onyomi": "げつ / がつ",
+    "meaning": "Month / Moon",
+    "sentence": "月がきれいですね"
+  },
+  {
+    "kanji": "木",
+    "unicode": "U+6728",
+    "kunyomi": "き",
+    "onyomi": "もく / ぼく",
+    "meaning": "Tree / Wood",
+    "sentence": "庭に大きな木があります"
+  },
+  {
+    "kanji": "本",
+    "unicode": "U+672C",
+    "kunyomi": "もと",
+    "onyomi": "ほん",
+    "meaning": "Book / Origin",
+    "sentence": "図書館で本を借りました"
+  },
+  {
+    "kanji": "来",
+    "unicode": "U+6765",
+    "kunyomi": "くる",
+    "onyomi": "らい",
+    "meaning": "Come",
+    "sentence": "来週また来ます"
+  },
+  {
+    "kanji": "東",
+    "unicode": "U+6771",
+    "kunyomi": "ひがし",
+    "onyomi": "とう",
+    "meaning": "East",
+    "sentence": "東の空から太陽が登ります"
+  },
+  {
+    "kanji": "校",
+    "unicode": "U+6821",
+    "kunyomi": "-",
+    "onyomi": "こう",
+    "meaning": "School",
+    "sentence": "学校は八時に始まります"
+  },
+  {
+    "kanji": "母",
+    "unicode": "U+6BCD",
+    "kunyomi": "はは",
+    "onyomi": "ぼ",
+    "meaning": "Mother",
+    "sentence": "母は料理が上手です"
+  },
+  {
+    "kanji": "毎",
+    "unicode": "U+6BCE",
+    "kunyomi": "ごと",
+    "onyomi": "まい",
+    "meaning": "Every",
+    "sentence": "毎日日本語を勉強します"
+  },
+  {
+    "kanji": "気",
+    "unicode": "U+6C17",
+    "kunyomi": "-",
+    "onyomi": "き / け",
+    "meaning": "Spirit / Air / Feeling",
+    "sentence": "お元気ですか"
+  },
+  {
+    "kanji": "水",
+    "unicode": "U+6C34",
+    "kunyomi": "みず",
+    "onyomi": "すい",
+    "meaning": "Water",
+    "sentence": "水を飲んでください"
+  },
+  {
+    "kanji": "火",
+    "unicode": "U+706B",
+    "kunyomi": "ひ",
+    "onyomi": "か",
+    "meaning": "Fire",
+    "sentence": "火曜日にテストがあります"
+  },
+  {
+    "kanji": "父",
+    "unicode": "U+7236",
+    "kunyomi": "ちち",
+    "onyomi": "ふ",
+    "meaning": "Father",
+    "sentence": "父は会社員です"
+  },
+  {
+    "kanji": "生",
+    "unicode": "U+751F",
+    "kunyomi": "いきる / うまれる / なま",
+    "onyomi": "せい / しょう",
+    "meaning": "Life / Birth",
+    "sentence": "先月生まれました"
+  },
+  {
+    "kanji": "男",
+    "unicode": "U+7537",
+    "kunyomi": "おとこ",
+    "onyomi": "だん / なん",
+    "meaning": "Man",
+    "sentence": "男の人に話しかけられました"
+  },
+  {
+    "kanji": "白",
+    "unicode": "U+767D",
+    "kunyomi": "しろい",
+    "onyomi": "はく",
+    "meaning": "White",
+    "sentence": "白いシャツを着ています"
+  },
+  {
+    "kanji": "百",
+    "unicode": "U+767E",
+    "kunyomi": "-",
+    "onyomi": "ひゃく",
+    "meaning": "Hundred",
+    "sentence": "百円のノートを買いました"
+  },
+  {
+    "kanji": "目",
+    "unicode": "U+76EE",
+    "kunyomi": "め",
+    "onyomi": "もく",
+    "meaning": "Eye",
+    "sentence": "目が痛いです"
+  },
+  {
+    "kanji": "社",
+    "unicode": "U+793E",
+    "kunyomi": "やしろ",
+    "onyomi": "しゃ",
+    "meaning": "Company / Shrine",
+    "sentence": "父は会社で働いています"
+  },
+  {
+    "kanji": "空",
+    "unicode": "U+7A7A",
+    "kunyomi": "そら / あく / から",
+    "onyomi": "くう",
+    "meaning": "Sky / Empty",
+    "sentence": "空がとても青いです"
+  },
+  {
+    "kanji": "立",
+    "unicode": "U+7ACB",
+    "kunyomi": "たつ / たてる",
+    "onyomi": "りつ",
+    "meaning": "Stand",
+    "sentence": "立ってください"
+  },
+  {
+    "kanji": "耳",
+    "unicode": "U+8033",
+    "kunyomi": "みみ",
+    "onyomi": "じ",
+    "meaning": "Ear",
+    "sentence": "耳が少し痛いです"
+  },
+  {
+    "kanji": "聞",
+    "unicode": "U+805E",
+    "kunyomi": "きく / きこえる",
+    "onyomi": "ぶん / もん",
+    "meaning": "Hear / Listen",
+    "sentence": "音楽を聞くのが好きです"
+  },
+  {
+    "kanji": "花",
+    "unicode": "U+82B1",
+    "kunyomi": "はな",
+    "onyomi": "か",
+    "meaning": "Flower",
+    "sentence": "庭にきれいな花があります"
+  },
+  {
+    "kanji": "行",
+    "unicode": "U+884C",
+    "kunyomi": "いく / おこなう",
+    "onyomi": "こう / ぎょう",
+    "meaning": "Go",
+    "sentence": "明日東京へ行きます"
+  },
+  {
+    "kanji": "西",
+    "unicode": "U+897F",
+    "kunyomi": "にし",
+    "onyomi": "せい / さい",
+    "meaning": "West",
+    "sentence": "西の空が赤く染まっています"
+  },
+  {
+    "kanji": "見",
+    "unicode": "U+898B",
+    "kunyomi": "みる / みえる",
+    "onyomi": "けん",
+    "meaning": "See / Look",
+    "sentence": "映画を見に行きます"
+  },
+  {
+    "kanji": "言",
+    "unicode": "U+8A00",
+    "kunyomi": "いう / こと",
+    "onyomi": "げん / ごん",
+    "meaning": "Say / Word",
+    "sentence": "日本語で言ってください"
+  },
+  {
+    "kanji": "話",
+    "unicode": "U+8A71",
+    "kunyomi": "はなす / はなし",
+    "onyomi": "わ",
+    "meaning": "Talk / Speak",
+    "sentence": "日本語で話しましょう"
   },
   {
     "kanji": "語",
     "unicode": "U+8A9E",
-    "kunyomi": "kata",
-    "onyomi": "go"
+    "kunyomi": "かたる",
+    "onyomi": "ご",
+    "meaning": "Language / Word",
+    "sentence": "英語と日本語を話します"
+  },
+  {
+    "kanji": "読",
+    "unicode": "U+8AAD",
+    "kunyomi": "よむ",
+    "onyomi": "どく",
+    "meaning": "Read",
+    "sentence": "毎日新聞を読みます"
+  },
+  {
+    "kanji": "買",
+    "unicode": "U+8CB7",
+    "kunyomi": "かう",
+    "onyomi": "ばい",
+    "meaning": "Buy",
+    "sentence": "新しい服を買いました"
+  },
+  {
+    "kanji": "足",
+    "unicode": "U+8DB3",
+    "kunyomi": "あし / たりる",
+    "onyomi": "そく",
+    "meaning": "Leg / Foot / Sufficient",
+    "sentence": "たくさん歩いて足が疲れました"
+  },
+  {
+    "kanji": "車",
+    "unicode": "U+8ECA",
+    "kunyomi": "くるま",
+    "onyomi": "しゃ",
+    "meaning": "Car / Vehicle",
+    "sentence": "車で学校へ行きます"
+  },
+  {
+    "kanji": "週",
+    "unicode": "U+9031",
+    "kunyomi": "-",
+    "onyomi": "しゅう",
+    "meaning": "Week",
+    "sentence": "来週また来ます"
+  },
+  {
+    "kanji": "道",
+    "unicode": "U+9053",
+    "kunyomi": "みち",
+    "onyomi": "どう",
+    "meaning": "Road / Way",
+    "sentence": "この道をまっすぐ行ってください"
+  },
+  {
+    "kanji": "金",
+    "unicode": "U+91D1",
+    "kunyomi": "かね",
+    "onyomi": "きん",
+    "meaning": "Gold / Money",
+    "sentence": "金曜日にお金を払います"
+  },
+  {
+    "kanji": "長",
+    "unicode": "U+9577",
+    "kunyomi": "ながい",
+    "onyomi": "ちょう",
+    "meaning": "Long",
+    "sentence": "この道は長いです"
+  },
+  {
+    "kanji": "間",
+    "unicode": "U+9593",
+    "kunyomi": "あいだ / ま",
+    "onyomi": "かん",
+    "meaning": "Between / Interval / Space",
+    "sentence": "本屋と薬局の間にあります"
+  },
+  {
+    "kanji": "雨",
+    "unicode": "U+96E8",
+    "kunyomi": "あめ",
+    "onyomi": "う",
+    "meaning": "Rain",
+    "sentence": "今日は雨が降っています"
+  },
+  {
+    "kanji": "電",
+    "unicode": "U+96FB",
+    "kunyomi": "いなずま",
+    "onyomi": "でん",
+    "meaning": "Electricity",
+    "sentence": "電車に乗って帰ります"
+  },
+  {
+    "kanji": "食",
+    "unicode": "U+98DF",
+    "kunyomi": "たべる",
+    "onyomi": "しょく",
+    "meaning": "Eat / Food",
+    "sentence": "朝ごはんを食べましたか"
+  },
+  {
+    "kanji": "飲",
+    "unicode": "U+98F2",
+    "kunyomi": "のむ",
+    "onyomi": "いん",
+    "meaning": "Drink",
+    "sentence": "お茶を飲みましょう"
+  },
+  {
+    "kanji": "駅",
+    "unicode": "U+99C5",
+    "kunyomi": "-",
+    "onyomi": "えき",
+    "meaning": "Station",
+    "sentence": "駅まで歩きます"
+  },
+  {
+    "kanji": "高",
+    "unicode": "U+9AD8",
+    "kunyomi": "たかい",
+    "onyomi": "こう",
+    "meaning": "High / Expensive",
+    "sentence": "このレストランは少し高いです"
+  },
+  {
+    "kanji": "魚",
+    "unicode": "U+9B5A",
+    "kunyomi": "さかな",
+    "onyomi": "ぎょ",
+    "meaning": "Fish",
+    "sentence": "魚を食べました"
   }
 ]
