@@ -46,7 +46,7 @@ def get_kanji_stroke(target_svg_path: str):
         ref_strokes = [resample_stroke_spatial(s, num_points=30) for s in ref_norm]
         print_log(f"Loaded KanjiVG target ({len(ref_strokes)} strokes).")
     except Exception:
-        print_log(f"Could not load SVG file ({current_kanji['unicode'].replace('U+', '0')}.svg).")
+        print_log(f"Could not load SVG file {target_svg_path}")
         ref_strokes = []
 
     return ref_strokes
@@ -174,7 +174,7 @@ else:
 
     current_kanji = selected_kanji_metadata[st.session_state.kanji_index]
     kanji_in_question = current_kanji.get('kanji', '')
-    target_svg_path = f"data/kanjivg/{current_kanji['unicode'].replace('U+', '0')}.svg"
+    target_svg_path = f"data/kanjivg/{current_kanji['unicode'].replace('U+', '0').lower()}.svg"
     ref_strokes = get_kanji_stroke(target_svg_path)
     # target_img = generate_stroke_order_image(target_svg_path, size=350, line_thickness=3)
     # practice_container =
