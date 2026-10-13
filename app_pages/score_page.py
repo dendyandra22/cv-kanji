@@ -161,7 +161,7 @@ with col2:
             _ = st.session_state.pop("sett_random_seed", None)
             _ = st.session_state.pop("test_score", None)
             back_to_page = st.query_params.get("page_source", "home.py")
-            st.switch_page(f"pages/{back_to_page}")
+            st.switch_page(f"app_pages/{back_to_page}")
 
 
 # Credit Section

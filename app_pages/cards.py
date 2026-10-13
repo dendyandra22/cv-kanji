@@ -14,7 +14,7 @@ def menu_card(label, image, content, btn_text, page_ref):
     st.markdown(content, text_alignment="center")
 
     if st.button(btn_text, type="primary"):
-        st.switch_page(f"pages/{page_ref}")
+        st.switch_page(f"app_pages/{page_ref}")
 
 def lesson_card(label, image="", content="", expander_data=None, btn_text="", page_ref=""):
     st.markdown(
@@ -30,7 +30,7 @@ def lesson_card(label, image="", content="", expander_data=None, btn_text="", pa
 
     if st.button(btn_text, type="primary"):
         if page_ref:
-            st.switch_page(f"pages/{page_ref}")
+            st.switch_page(f"app_pages/{page_ref}")
 
     with st.expander("See Kanji List"):
         if isinstance(expander_data, list):

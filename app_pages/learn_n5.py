@@ -148,6 +148,12 @@ if not st.session_state.in_practice:
 
 # VIEW 2: Practice Screen
 else:
+    if "kanji_index" not in st.session_state:
+        st.session_state.kanji_index = 0
+
+    if "test_score" not in st.session_state:
+        st.session_state.test_score = []
+
     st.markdown(
         f"""
         # ✍️ Practice Kanji: Level N5
@@ -160,12 +166,6 @@ else:
         unsafe_allow_html=True,
     )
     selected_kanji_metadata = [kanji_metadata[i] for i in st.session_state.kanji_selected_idx]
-
-    if "kanji_index" not in st.session_state:
-        st.session_state.kanji_index = 0
-
-    if "test_score" not in st.session_state:
-        st.session_state.test_score = []
 
     # initiate current kanji
     if st.session_state.sett_random_kanji:
@@ -276,10 +276,7 @@ else:
                     target_tensor = numpy_to_target_tensor(np_img, "cpu")
                     user_tensor = preprocess_canvas_image(canvas_result.image_data)
                     cnn_similarity = calculate_similarity_score(cnn_model, user_tensor, target_tensor)
-                    # print("user_rgba_shape", canvas_img_rgba.shape, type(canvas_img_rgba))
-                    # print("user_tensor", user_tensor.shape, type(user_tensor))
-                    # print("svg_to_numpy", np_img.shape, type(np_img))
-                    # print("target_tensor", target_tensor.shape, type(target_tensor))
+
 
 
                     # --- Final Weighted Score Calculation ---
@@ -297,22 +294,12 @@ else:
 
                     st.divider()
 
-                    # --- 4-Component Score Breakdown Grid ---
-                    # st.write("### Metric Breakdown")
-                    # m1, m2, m3, m4 = st.columns(4)
+                    # --- Component Score Breakdown Grid ---
                     st.metric("1. Total Stroke", f"{total_stroke_score}% ({seq_results['user_stroke_count']} of {seq_results['target_stroke_count']})")
                     st.metric("2. Direction Score", f"{direction_score:.1f}%")
                     # st.metric("3. SSIM Proportion", f"{ssim_score:.1f}%")
                     st.metric("4. CNN Similarity", f"{cnn_similarity:.1f}%")
 
-                    # # --- Stroke-by-Stroke Details ---
-                    # st.write("### Detailed Stroke Breakdown")
-                    # for res in seq_results["stroke_breakdown"]:
-                    #     idx = res["stroke_index"]
-                    #     status = "✅ Correct" if res["direction_correct"] else "❌ Drawn Backwards"
-                    #     with st.expander(f"Stroke {idx} Analysis"):
-                    #         st.write(f"**Shape Similarity (DTW):** {res['shape_score']} / 100")
-                    #         st.write(f"**Direction Status:** {status}")
                 else:
                     st.info("Draw on the canvas to compute the live score.")
 
