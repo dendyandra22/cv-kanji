@@ -5,11 +5,10 @@ from .utility import print_log
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
-KANJI_SVG_DIR = DATA_DIR / "kanjivg"
+KANJI_SVG_DIR = DATA_DIR / "kanji_svg"
 
 def load_kanji_metadata(filename: str|Path, verbose: bool = False) -> list[dict]:
     filename = Path(filename) if isinstance(filename, str) else filename
-    print(filename, type(filename))
     if filename.suffix != ".json":
         filename = filename.with_suffix(".json")
 
@@ -20,13 +19,16 @@ def load_kanji_metadata(filename: str|Path, verbose: bool = False) -> list[dict]
 
     # Validate missing data
     missing_data = []
+    KANJI_LEVEL_DIR = KANJI_SVG_DIR / filename.stem
     for item in data:
         unicode = item["unicode"].replace("U+","0")
-        if not Path(KANJI_SVG_DIR / f"{unicode}.svg").exists():
+        if not Path(KANJI_LEVEL_DIR / f"{unicode}.svg").exists():
             missing_data.append(item)
             data.remove(item)
-    print_log(f"{len(missing_data)} missing data skipped...")
-    print(missing_data)
+
+    if missing_data:
+        print_log(f"{len(missing_data)} missing data skipped...")
+        print(missing_data)
 
     return data
 
