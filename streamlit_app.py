@@ -1,11 +1,11 @@
 import streamlit as st
 
-home_page = st.Page("pages/home.py", title="Home", default=True)
-learn_page = st.Page("pages/learning_page.py", title="Practice Kanji Writting")
-learn_n5_page = st.Page("pages/learn_n5.py", title="Practice Kanji N5")
-exercise_page = st.Page("pages/exercise_page.py", title="Exercise Kanji Writting")
-test_n5_page = st.Page("pages/test_n5.py", title="Test N5")
-score_page = st.Page("pages/score_page.py", title="Result")
+home_page = st.Page("app_pages/home.py", title="Home", default=True)
+learn_page = st.Page("app_pages/learning_page.py", title="Practice Kanji Writing")
+learn_n5_page = st.Page("app_pages/learn_n5.py", title="Practice Kanji N5")
+exercise_page = st.Page("app_pages/exercise_page.py", title="Exercise Kanji Writing")
+test_n5_page = st.Page("app_pages/test_n5.py", title="Test N5")
+score_page = st.Page("app_pages/score_page.py", title="Result")
 
 pages = {
         "Get Started": [home_page],
