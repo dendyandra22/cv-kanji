@@ -7,7 +7,6 @@ from svgpathtools import svg2paths
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
-import matplotlib.pyplot as plt
 import streamlit as st
 
 def extract_kanjivg_strokes(svg_path, num_samples=30):
@@ -140,7 +139,6 @@ def generate_stroke_order_image(svg_path, size=300, line_thickness=4):
         num_strokes = len(paths)
 
         # # Create a smooth color map gradient (e.g., jet or rainbow: 1st stroke = Red, Last = Blue)
-        # cmap = plt.get_cmap("jet")
 
         for idx, path in enumerate(paths):
             # # Pick RGB color along the gradient based on stroke order index
