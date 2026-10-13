@@ -4,7 +4,7 @@ fastdtw
 scipy
 streamlit
 streamlit-drawable-canvas
-opencv-python
+opencv-python-headless
 scikit-image
 torch
 torchvision
