@@ -98,7 +98,7 @@ if not st.session_state.in_practice:
         for i, j in enumerate(range(0, len(idx_range), batch_size), start=1):
             batch_end = i * batch_size if i * batch_size <= len(idx_range) else len(idx_range)
             idx_batch[f"kanji {i}"] = idx_range[j:j + batch_size]
-
+        print_log(idx_batch)
         batch_opt = get_kanji_batch_n5(kanji_metadata, idx_batch)
 
         st.divider()

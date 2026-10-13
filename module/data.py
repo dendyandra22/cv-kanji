@@ -22,6 +22,7 @@ def load_kanji_metadata(filename: str|Path, verbose: bool = False) -> list[dict]
     KANJI_LEVEL_DIR = KANJI_SVG_DIR / filename.stem
     for item in data:
         unicode = item["unicode"].replace("U+","0")
+        unicode = unicode.lower()
         if not Path(KANJI_LEVEL_DIR / f"{unicode}.svg").exists():
             missing_data.append(item)
             data.remove(item)
