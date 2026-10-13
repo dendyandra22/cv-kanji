@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-from pages.sidebar import get_sidebar, get_credit_footer
+from app_pages.sidebar import get_sidebar, get_credit_footer
 
 st.set_page_config(page_title="Result", layout="centered")
 

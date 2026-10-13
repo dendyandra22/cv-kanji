@@ -14,10 +14,10 @@ from module.svg import extract_kanjivg_strokes, svg_to_numpy, numpy_to_target_te
 from module.cnn import preprocess_canvas_image
 from module.cnn_train import SiameseKanjiNet
 from module.utility import print_log
-from pages.cards import menu_card, lesson_card
-from pages.sidebar import get_sidebar, get_credit_footer, get_kanji_level_card
+from app_pages.cards import menu_card, lesson_card
+from app_pages.sidebar import get_sidebar, get_credit_footer, get_kanji_level_card
 
-st.set_page_config(page_title="Exercise Kanji", page_icon="📋", layout="centered")
+st.set_page_config(page_title="Practice Kanji", page_icon="✍️", layout="centered")
 
 # Main Function
 
@@ -37,15 +37,16 @@ kanji_metadata = load_kanji_data(shuffle=False)
 get_sidebar()
 
 
-# Exercise Welcome Screen
+# Practice Welcome Screen
 st.markdown(
     """
-    # 📋 Kanji Exercise
+    # ✍️ Kanji Practice
     """
 )
+
 with st.container(horizontal_alignment="center"):
     st.image(
-        "https://img.magnific.com/premium-vector/man-woman-sitting-stack-books-reading-intently-while-using-laptops-two-people-reading-books-using-laptops-simple-minimalist-flat-vector-illustration_538213-119036.jpg",
+        "https://img.magnific.com/premium-vector/three-individuals-are-seated-floor-engrossed-reading-books-people-are-reading-books-it39s-time-learn-simple-minimalist-flat-vector-illustration_538213-118964.jpg",
         width=500)
 
 # How To Section
@@ -55,22 +56,22 @@ col1, col2, col3 = st.columns(3)
 with col1:
     with st.container(border=True, height=180):
         st.markdown("#### 1. Select a Level")
-        st.write("Choose a JLPT batch below to start exercising.")
+        st.write("Choose a JLPT batch below to start practicing.")
 
 with col2:
     with st.container(border=True, height=180):
         st.markdown("#### 2. Draw & Trace")
-        st.write("Draw Kanji on screen to answer the question.")
+        st.write("Write each character stroke by stroke on screen.")
 
 with col3:
     with st.container(border=True, height=180):
-        st.markdown("#### 3. Get Results")
-        st.write("Review test result at the end of the exercise.")
+        st.markdown("#### 3. Get Feedback")
+        st.write("See instant scores on your stroke order and shape precision.")
 st.divider()
 
 # Kanji Level Section
-st.subheader("Select a Exercise Level")
-get_kanji_level_card(kanji_metadata, practice_route=False)
+st.subheader("Select a Practice Level")
+get_kanji_level_card(kanji_metadata)
 
 # Credit Section
 get_credit_footer()

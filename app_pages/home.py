@@ -1,6 +1,6 @@
 import streamlit as st
-from pages.cards import menu_card
-from pages.sidebar import get_sidebar, get_credit_footer
+from app_pages.cards import menu_card
+from app_pages.sidebar import get_sidebar, get_credit_footer
 
 st.set_page_config(page_title="Kakikata - Master Kanji Writing", page_icon="✍️", layout="centered")
 

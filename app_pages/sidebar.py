@@ -3,13 +3,13 @@ from .cards import batch_card, lesson_card
 
 def get_sidebar():
     st.sidebar.markdown("## Get Started")
-    st.sidebar.page_link("pages/home.py")
+    st.sidebar.page_link("app_pages/home.py")
 
     st.sidebar.markdown("## Learn Kanji")
-    st.sidebar.page_link("pages/learning_page.py")
+    st.sidebar.page_link("app_pages/learning_page.py")
 
     st.sidebar.markdown("## Exercise")
-    st.sidebar.page_link("pages/exercise_page.py")
+    st.sidebar.page_link("app_pages/exercise_page.py")
 
 def get_credit_footer():
     st.divider()

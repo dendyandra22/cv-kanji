@@ -14,8 +14,8 @@ from module.svg import extract_kanjivg_strokes, svg_to_numpy, numpy_to_target_te
 from module.cnn import preprocess_canvas_image
 from module.cnn_train import SiameseKanjiNet
 from module.utility import print_log
-from pages.cards import menu_card, batch_card
-from pages.sidebar import get_sidebar, get_credit_footer, get_kanji_batch_n5
+from app_pages.cards import menu_card, batch_card
+from app_pages.sidebar import get_sidebar, get_credit_footer, get_kanji_batch_n5
 
 st.set_page_config(page_title="Kanji Practice: N5", page_icon="✍️", layout="wide")
 
@@ -363,7 +363,7 @@ else:
                 _ = st.session_state.pop("sett_random_kanji", None)
                 _ = st.session_state.pop("sett_random_seed", None)
                 st.session_state.canvas_key += 1
-                st.switch_page("pages/score_page.py", query_params={"page_source": "learn_n5.py"})
+                st.switch_page("app_pages/score_page.py", query_params={"page_source": "learn_n5.py"})
 
     # Credit Section
     get_credit_footer()

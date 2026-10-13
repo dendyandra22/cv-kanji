@@ -13,7 +13,7 @@ from module.svg import extract_kanjivg_strokes, svg_to_numpy, numpy_to_target_te
 from module.cnn import predict_kanji_cnn, KanjiCNN, predict_kanji_cnn2, preprocess_canvas_image
 from module.cnn_train import SiameseKanjiNet
 from module.utility import print_log
-from pages.sidebar import get_sidebar, get_credit_footer, get_kanji_batch_n5
+from app_pages.sidebar import get_sidebar, get_credit_footer, get_kanji_batch_n5
 
 st.set_page_config(page_title="Exercise Kanji N5", page_icon="📋", layout="centered")
 
@@ -338,7 +338,7 @@ else:
                                                     })
                 print_log(f"len test score: {len(st.session_state.test_score)}")
                 # print_log(st.session_state.test_score[-1])
-                st.switch_page("pages/score_page.py", query_params={"page_source": "test_n5.py"})
+                st.switch_page("app_pages/score_page.py", query_params={"page_source": "test_n5.py"})
 
 # Credit Section
 get_credit_footer()
