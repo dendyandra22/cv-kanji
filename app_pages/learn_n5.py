@@ -174,7 +174,7 @@ else:
 
     current_kanji = selected_kanji_metadata[st.session_state.kanji_index]
     kanji_in_question = current_kanji.get('kanji', '')
-    target_svg_path = f"data/kanjivg/{current_kanji['unicode'].replace('U+', '0').lower()}.svg"
+    target_svg_path = f"data/kanji_svg/{current_kanji['unicode'].replace('U+', '0').lower()}.svg"
     ref_strokes = get_kanji_stroke(target_svg_path)
     # target_img = generate_stroke_order_image(target_svg_path, size=350, line_thickness=3)
     # practice_container =
